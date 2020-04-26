@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+isort = "*"
+flake8 = "*"
+pytest = "*"
+
+[packages]
+fastapi = "*"
+starlette = "*"
+uvicorn = "*"
+pydantic = "*"
+psycopg2-binary = "*"
+requests = "*"
+sqlalchemy = "*"
+sqlalchemy-utils = "*"
+
+[pipenv]
+allow_prereleases = true

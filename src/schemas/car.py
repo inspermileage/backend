@@ -17,14 +17,13 @@ class CarInDB(BaseModel):
     ref_date: date
     dist: float
     engine_temp: float
-    time: datetime.now().strftime("%X")
+    time:  time
     energy_cons: float
     rpm: int
     batery: int
     round_id: int
     class Config:
         orm_mode = True
-
 
 class CarCreate(BaseModel):
     """
@@ -37,12 +36,11 @@ class CarCreate(BaseModel):
     ref_date: Optional[date] = datetime.now().date()
     dist: float
     engine_temp: float
-    time: datetime.time
+    time:  time
     energy_cons: float
     rpm: int
     batery: int
     round_id: int
-
 
 class CarUpdate(BaseModel):
     """
@@ -55,7 +53,7 @@ class CarUpdate(BaseModel):
     ref_date: Optional[date]
     dist: Optional[float]
     engine_temp: Optional[float]
-    time: Optional[date]
+    time: Optional[time]
     energy_cons: Optional[float]
     rpm: Optional[int]
     batery: Optional[int]

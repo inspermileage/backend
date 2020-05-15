@@ -4,7 +4,7 @@ from src.database.base_class import Base
 from src.models.round import Round
 
 
-class Class(Base):
+class Car(Base):
 
  
     id= Column(Integer, primary_key=True, index=True)
@@ -16,7 +16,7 @@ class Class(Base):
     engine_temp = Column(float, nullable=False)
     time = Column(Date, nullable=False)
     energy_cons = Column(float, nullable=True)
-    rpm = Column(int, nullable = False)
+    rpm = Column(Integer, nullable = False)
     batery = Column(Integer, nullable=True)
     round_id = Column(Integer, ForeignKey("round.id"))
-    rounds = relationship(round, primaryjoin=round_id == Round.id)
+    rounds = relationship(Round, primaryjoin=round_id == Round.id)

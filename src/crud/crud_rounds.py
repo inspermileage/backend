@@ -7,6 +7,10 @@ from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.round import Round as RoundModel
 from src.schemas.round import RoundCreate, RoundUpdate
 
+from src.models.car import Car as CarModel
+from src.schemas.car import CarCreate, CarUpdate
+
+
 
 def create(*, db_session: Session, obj_in: RoundCreate) -> RoundModel:
     """Creates a row with new data in the Round table
@@ -129,3 +133,22 @@ def delete(*, db_session: Session, round_id: int) -> RoundModel:
     db_session.delete(round_exists)
     db_session.commit()
     return round_exists
+
+def create(*, db_session: Session, obj_in: CarCreate) -> CarModel:
+ 
+    # Transforms object to dict
+    in_data: Dict = jsonable_encoder(obj_in)
+
+    # Unpacks dict values to the Round database model
+    db_obj: CarModel = CarModel(**in_data)
+
+    round_exists = db_session.query(CarModel).filter(CarModel.name == db_obj.name).first()
+
+    if round_exists:
+        raise ExistenceException(field=db_obj.name)
+
+    # Inserts the round data to the database
+    db_session.add(db_obj)
+    db_session.commit()
+    db_session.refresh(db_obj)
+    return db_obj

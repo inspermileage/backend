@@ -10,6 +10,14 @@ from src.schemas.car import CarCreate, CarInDB, CarUpdate
 
 router = APIRouter()
 
+@router.get("/", response_model=List[CarInDB])
+def read_rounds(db: Session = Depends(get_db)):
+    """
+    Returns a list of all the round entries in the database.
+    """
+
+    return read_all(db_session=db)
+
 
 @router.delete("/{car_id}", response_model=CarInDB)
 def delete_round(*, db: Session = Depends(get_db), car_id: int):

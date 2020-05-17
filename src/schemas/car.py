@@ -17,7 +17,7 @@ class CarInDB(BaseModel):
     ref_date: date
     dist: float
     engine_temp: float
-    time:  time
+    ref_time:  time
     energy_cons: float
     rpm: int
     batery: int
@@ -36,7 +36,7 @@ class CarCreate(BaseModel):
     ref_date: Optional[date] = datetime.now().date()
     dist: float
     engine_temp: float
-    time:  time
+    ref_time:  Optional[time] = datetime.now().time()
     energy_cons: float
     rpm: int
     batery: int
@@ -53,7 +53,7 @@ class CarUpdate(BaseModel):
     ref_date: Optional[date]
     dist: Optional[float]
     engine_temp: Optional[float]
-    time: Optional[time]
+    ref_time: Optional[time]
     energy_cons: Optional[float]
     rpm: Optional[int]
     batery: Optional[int]

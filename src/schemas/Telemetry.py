@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+import datetime
 from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional
@@ -14,11 +15,11 @@ class TelemetryInDB(BaseModel):
     speed: float
     dist: float
     engine_temp: float
-    ref_time:  time
+    telemetry_timestamp:  time
     energy_cons: float
     rpm: int
     batery: int
-    round_id: int
+    creation_timestamp: datetime
     class Config:
         orm_mode = True
 
@@ -31,10 +32,11 @@ class TelemetryCreate(BaseModel):
     speed: float
     dist: float
     engine_temp: float
-    ref_time:  Optional[time] = datetime.now().time()
+    telemetry_timestamp:  Optional[time] = datetime.now().time()
     energy_cons: float
     rpm: int
     batery: int
+    creation_timestamp: Optional[time] = datetime.now()
     round_id: int
 
 class TelemetryUpdate(BaseModel):
@@ -46,8 +48,9 @@ class TelemetryUpdate(BaseModel):
     speed: Optional[float]
     dist: Optional[float]
     engine_temp: Optional[float]
-    ref_time: Optional[time]
+    telemetry_timestamp: Optional[time]
     energy_cons: Optional[float]
     rpm: Optional[int]
     batery: Optional[int]
+    creation_timestamp: Optional[datetime]
     round_id: Optional[int]

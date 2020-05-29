@@ -7,4 +7,5 @@ class Car2(Base):
     id= Column(Integer, primary_key=True, index=True)
     name= Column(String, nullable=True)
     description= Column(String, nullable=True)
-    creation_date: Column(Date, nullable=False)
+    creation_date= Column(Date, nullable=False)
+  

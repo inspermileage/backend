@@ -35,3 +35,4 @@ class Car2Update(BaseModel):
     description: Optional[str]
     creation_date: Optional[date]
 
+ 

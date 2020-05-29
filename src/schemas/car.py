@@ -27,7 +27,7 @@ class CarInDB(BaseModel):
 
 class CarCreate(BaseModel):
     """
-    This class models the request body for creating a new Round in the database.
+    This class models the request body for creating a new Car in the database.
     """
 
     name: Optional[str]=""
@@ -44,7 +44,7 @@ class CarCreate(BaseModel):
 
 class CarUpdate(BaseModel):
     """
-    This class models the request body for updating a existing Round in the database.
+    This class models the request body for updating a existing Car in the database.
     """
 
     name: Optional[str]

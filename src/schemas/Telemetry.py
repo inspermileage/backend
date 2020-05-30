@@ -1,9 +1,9 @@
-from pydantic import BaseModel, Field
 import datetime
 from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional
 
+from pydantic import BaseModel, Field
 
 
 class TelemetryInDB(BaseModel):
@@ -19,7 +19,7 @@ class TelemetryInDB(BaseModel):
     energy_cons: float
     rpm: int
     batery: int
-    creation_timestamp: datetime
+   # telemtery_timestamp: datetime
     class Config:
         orm_mode = True
 
@@ -36,7 +36,7 @@ class TelemetryCreate(BaseModel):
     energy_cons: float
     rpm: int
     batery: int
-    creation_timestamp: Optional[time] = datetime.now()
+    #telemetry_timestamp: Optional[time] = datetime.now()
     round_id: int
 
 class TelemetryUpdate(BaseModel):
@@ -52,5 +52,5 @@ class TelemetryUpdate(BaseModel):
     energy_cons: Optional[float]
     rpm: Optional[int]
     batery: Optional[int]
-    creation_timestamp: Optional[datetime]
+   # telemetry_timestamp: Optional[datetime]
     round_id: Optional[int]

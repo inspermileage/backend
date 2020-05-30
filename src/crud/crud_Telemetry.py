@@ -8,7 +8,6 @@ from src.models.Telemetry import Telemetry as TelemetryModel
 from src.schemas.Telemetry import TelemetryCreate, TelemetryUpdate
 
 
-
 def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     """Creates a row with new data in the Telemetry table
 

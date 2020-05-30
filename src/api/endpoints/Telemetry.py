@@ -34,7 +34,7 @@ def read_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
 
 
 @router.get("/{Telemetry_data_teste}", response_model=TelemetryInDB)
-def read_Telemetry(*, db: Session = Depends(get_db), Telemetry_ref_date: date):
+def read_Telemetry_by_id(*, db: Session = Depends(get_db), Telemetry_ref_date: date):
     """
     Returns a Round specified by the date.
     """
@@ -68,7 +68,8 @@ def update_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int, Teleme
     except NonExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return updated_Telemetry
-    
+
+
 @router.delete("/{Telemetry_id}", response_model=TelemetryInDB)
 def delete_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
     """

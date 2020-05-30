@@ -24,7 +24,9 @@ class TelemetryInDB(BaseModel):
 
 class TelemetryCreate(BaseModel):
     """
+
     This class models the request body for creating a new Telemetry data in the database.
+
     """
 
    
@@ -39,7 +41,9 @@ class TelemetryCreate(BaseModel):
 
 class TelemetryUpdate(BaseModel):
     """
+
     This class models the request body for updating a existing Telemtry data in the database.
+
     """
 
     

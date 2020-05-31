@@ -4,8 +4,8 @@ from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 from datetime import date
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.models.Telemetry import Telemetry as TelemetryModel
-from src.schemas.Telemetry import TelemetryCreate, TelemetryUpdate
+from src.models.telemetry import Telemetry as TelemetryModel
+from src.schemas.telemetry import TelemetryCreate
 
 
 def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
@@ -96,38 +96,38 @@ def read_all(*, db_session: Session) -> List[TelemetryModel]:
     return obj_list
 
 
-def update(*, db_session: Session, Telemetry_id: int, obj_in: TelemetryUpdate) -> TelemetryModel:
-    """Updates a Car from the table, specified by the id
+# def update(*, db_session: Session, Telemetry_id: int, obj_in: TelemetryUpdate) -> TelemetryModel:
+#     """Updates a Car from the table, specified by the id
 
-    Args:
-        db_session: a Session instance to execute queries in the database
-        car_id: the id of the Telemetry
-        obj_in: a TelemetryUpdate object with the data to be updated in the Telemetry specified by id
+#     Args:
+#         db_session: a Session instance to execute queries in the database
+#         car_id: the id of the Telemetry
+#         obj_in: a TelemetryUpdate object with the data to be updated in the Telemetry specified by id
 
-    Returns:
-        The object TelemetryModel updated by the query
+#     Returns:
+#         The object TelemetryModel updated by the query
 
-    Raises:
-        NonExistenceException: if there is no telemetry with the specified id
-    """
+#     Raises:
+#         NonExistenceException: if there is no telemetry with the specified id
+#     """
 
-    Telemetry_exists: TelemetryModel = db_session.query(TelemetryModel).filter(
-        TelemetryModel.id == Telemetry_id).first()
-    if not Telemetry_exists:
-        raise NonExistenceException(field=str(Telemetry_id))
+#     Telemetry_exists: TelemetryModel = db_session.query(TelemetryModel).filter(
+#         TelemetryModel.id == Telemetry_id).first()
+#     if not Telemetry_exists:
+#         raise NonExistenceException(field=str(Telemetry_id))
 
-    # Transforms object to dict
-    existing_Telemetry: Dict = jsonable_encoder(Telemetry_exists)
-    update_data = obj_in.dict(exclude_unset=True)
+#     # Transforms object to dict
+#     existing_Telemetry: Dict = jsonable_encoder(Telemetry_exists)
+#     update_data = obj_in.dict(exclude_unset=True)
 
-    for field in existing_Telemetry:
-        if field in update_data:
-            setattr(Telemetry_exists, field, update_data[field])
+#     for field in existing_Telemetry:
+#         if field in update_data:
+#             setattr(Telemetry_exists, field, update_data[field])
 
-    db_session.add(Telemetry_exists)
-    db_session.commit()
-    db_session.refresh(Telemetry_exists)
-    return Telemetry_exists
+#     db_session.add(Telemetry_exists)
+#     db_session.commit()
+#     db_session.refresh(Telemetry_exists)
+#     return Telemetry_exists
 
 
 def delete(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:

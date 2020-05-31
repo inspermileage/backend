@@ -13,12 +13,12 @@ class TelemetryInDB(BaseModel):
 
     id: int
     speed: float
-    dist: float
+    distance: float
     engine_temp: float
-    telemetry_timestamp:  time
+    creation_time :  time
     energy_cons: float
     rpm: int
-    batery: int
+    battery: int
    # telemtery_timestamp: datetime
     class Config:
         orm_mode = True
@@ -28,29 +28,28 @@ class TelemetryCreate(BaseModel):
     This class models the request body for creating a new Telemetry data in the database.
     """
 
-   
+
     speed: float
-    dist: float
+    distance: float
     engine_temp: float
-    telemetry_timestamp:  Optional[time] = datetime.now().time()
+    creation_time : time=datetime.now().time()
     energy_cons: float
     rpm: int
-    batery: int
+    battery: int
     #telemetry_timestamp: Optional[time] = datetime.now()
     round_id: int
 
-class TelemetryUpdate(BaseModel):
-    """
-    This class models the request body for updating a existing Telemtry data in the database.
-    """
+# class TelemetryUpdate(BaseModel):
+#     """
+#     This class models the request body for updating a existing Telemtry data in the database.
+#     """
 
     
-    speed: Optional[float]
-    dist: Optional[float]
-    engine_temp: Optional[float]
-    telemetry_timestamp: Optional[time]
-    energy_cons: Optional[float]
-    rpm: Optional[int]
-    batery: Optional[int]
-   # telemetry_timestamp: Optional[datetime]
-    round_id: Optional[int]
+#     speed: Optional[float]
+#     distance: Optional[float]
+#     engine_temp: Optional[float]
+#     energy_cons: Optional[float]
+#     rpm: Optional[int]
+#     battery: Optional[int]
+#    # telemetry_timestamp: Optional[datetime]
+#     round_id: Optional[int]

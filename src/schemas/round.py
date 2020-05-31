@@ -27,7 +27,7 @@ class RoundInDB(BaseModel):
     ref_date: date
     reason: Reason
     track_id: int
-
+    car2_id: int
     class Config:
         orm_mode = True
 
@@ -42,7 +42,7 @@ class RoundCreate(BaseModel):
     reason: Reason
     ref_date: Optional[date] = datetime.now().date()
     track_id: int
-
+    car2_id: int
 
 class RoundUpdate(BaseModel):
     """
@@ -54,3 +54,4 @@ class RoundUpdate(BaseModel):
     reason: Optional[Reason]
     ref_date: Optional[date]
     track_id: Optional[int]
+    car2_id: Optional[int]

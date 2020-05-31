@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from datetime import date
 from src.api.utils.db import get_db
 from src.models.telemetry import Telemetry as TelemetryModel
-from src.crud.crud_telemetry import create, delete, read_all, read_one_by_id, read_one_by_date
+from src.crud.crud_telemetry import create, delete, read_all, read_one_by_id
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.schemas.telemetry import TelemetryCreate, TelemetryInDB
 
@@ -15,7 +15,7 @@ router = APIRouter()
 @router.get("/", response_model=List[TelemetryInDB])
 def read_Telemetrys(db: Session = Depends(get_db)):
     """
-    Returns a list of all the round entries in the database.
+    Returns a list of all the teleme entries in the database.
     """
 
     return read_all(db_session=db)
@@ -34,17 +34,17 @@ def read_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
     return existing_round
 
 
-@router.get("/{telemetry_data_teste}", response_model=TelemetryInDB)
-def read_Telemetry_by_id(*, db: Session = Depends(get_db), Telemetry_ref_date: date):
-    """
-    Returns a Round specified by the date.
-    """
+# @router.get("/{telemetry_data_teste}", response_model=TelemetryInDB)
+# def read_Telemetry_by_id(*, db: Session = Depends(get_db), Telemetry_ref_date: date):
+#     """
+#     Returns a Round specified by the date.
+#     """
 
-    try:
-        existing_round = read_one_by_date(db_session=db, Telemetry_ref_date=Telemetry_ref_date)
-    except NonExistenceException as err:
-        raise HTTPException(status_code=404, detail=err.message)
-    return existing_round
+#     try:
+#         existing_round = read_one_by_date(db_session=db, Telemetry_ref_date=Telemetry_ref_date)
+#     except NonExistenceException as err:
+#         raise HTTPException(status_code=404, detail=err.message)
+#     return existing_round
 
 
 @router.post("/", response_model=TelemetryInDB)

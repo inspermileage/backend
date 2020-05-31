@@ -15,7 +15,7 @@ class TelemetryInDB(BaseModel):
     speed: float
     distance: float
     engine_temp: float
-    creation_time :  time
+    creation_time :  datetime
     energy_cons: float
     rpm: int
     battery: int
@@ -32,7 +32,7 @@ class TelemetryCreate(BaseModel):
     speed: float
     distance: float
     engine_temp: float
-    creation_time : time=datetime.now().time()
+    creation_time : datetime=datetime.now().timestamp()
     energy_cons: float
     rpm: int
     battery: int

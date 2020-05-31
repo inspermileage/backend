@@ -28,10 +28,10 @@ def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     # Unpacks dict values to the Telemetry database model
     db_obj: TelemetryModel = TelemetryModel(**in_data)
 
-    telemetryelemetry_exists = db_session.query(TelemetryModel).filter(TelemetryModel.name == db_obj.name).first()
+    telemetry_exists = db_session.query(TelemetryModel).filter(TelemetryModel.id == db_obj.id).first()
 
-    if Telemetry_exists:
-        raise ExistenceException(field=db_obj.name)
+    if telemetry_exists:
+        raise ExistenceException(field=db_obj.id)
 
     # Inserts the telemetry data to the database
     db_session.add(db_obj)
@@ -60,24 +60,24 @@ def read_one_by_id(*, db_session: Session, telemetryTelemetry_id: int) -> Teleme
     return obj
 
 
-def read_one_by_date(*, db_session: Session, telemetryelemetry_ref_date: date) ->TelemetryModel:
-    """Fetches from the table, a Telemetry specified by the id
+# def read_one_by_date(*, db_session: Session, telemetryelemetry_ref_date: date) ->TelemetryModel:
+#     """Fetches from the table, a Telemetry specified by the id
 
-    Args:
-        db_session: a Session instance to execute queries in the database
-        telemetry_id: the id of the Telemetry
+#     Args:
+#         db_session: a Session instance to execute queries in the database
+#         telemetry_id: the id of the Telemetry
 
-    Returns:
-       The object TelemetryModel found by the query
+#     Returns:
+#        The object TelemetryModel found by the query
 
-    Raises:
-        NonExistenceException: if there is no telemetry with the specified id
-    """
+#     Raises:
+#         NonExistenceException: if there is no telemetry with the specified id
+#     """
 
-    obj: TelemetryModel = db_session.query(TelemetryModel).filter(TelemetryModel.id == Telemetry_id).first()
-    if not obj:
-        raise NonExistenceException(field=str(telemetry_ref_date))
-    return obj
+#     obj: TelemetryModel = db_session.query(TelemetryModel).filter(TelemetryModel.id == Telemetry_id).first()
+#     if not obj:
+#         raise NonExistenceException(field=str(telemetry_ref_date))
+#     return obj
 
     
 
@@ -96,38 +96,6 @@ def read_all(*, db_session: Session) -> List[TelemetryModel]:
     return obj_list
 
 
-# def update(*, db_session: Session, Telemetry_id: int, obj_in: TelemetryUpdate) -> TelemetryModel:
-#     """Updates a Car from the table, specified by the id
-
-#     Args:
-#         db_session: a Session instance to execute queries in the database
-#         car_id: the id of the Telemetry
-#         obj_in: a TelemetryUpdate object with the data to be updated in the Telemetry specified by id
-
-#     Returns:
-#         The object TelemetryModel updated by the query
-
-#     Raises:
-#         NonExistenceException: if there is no telemetry with the specified id
-#     """
-
-#     Telemetry_exists: TelemetryModel = db_session.query(TelemetryModel).filter(
-#         TelemetryModel.id == Telemetry_id).first()
-#     if not Telemetry_exists:
-#         raise NonExistenceException(field=str(Telemetry_id))
-
-#     # Transforms object to dict
-#     existing_Telemetry: Dict = jsonable_encoder(Telemetry_exists)
-#     update_data = obj_in.dict(exclude_unset=True)
-
-#     for field in existing_Telemetry:
-#         if field in update_data:
-#             setattr(Telemetry_exists, field, update_data[field])
-
-#     db_session.add(Telemetry_exists)
-#     db_session.commit()
-#     db_session.refresh(Telemetry_exists)
-#     return Telemetry_exists
 
 
 def delete(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:

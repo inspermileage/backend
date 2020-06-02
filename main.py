@@ -9,7 +9,7 @@ from src.database.session import Session, engine
 
 app = FastAPI(redoc_url="/docs", docs_url="/docs2")
 
-Base.metadata.create_all(bind=engine, checkfirst=False)
+Base.metadata.create_all(bind=engine, checkfirst=True)
 
 
 @app.get("/")

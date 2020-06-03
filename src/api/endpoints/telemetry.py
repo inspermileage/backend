@@ -82,3 +82,4 @@ def delete_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
     except NonExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return deleted_Telemetry
+  

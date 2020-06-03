@@ -7,10 +7,13 @@ client = TestClient(app)
 # Creates a track so tests dont give a FK error on inserting round
 track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
 track_id = track_response.json()["id"]
-car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
-car_id=car_response.json()["id"]
+
+
 
 def test_create_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
+
     data = {"name": "test_create_1",
             "reason": "Test",
             "track_id": track_id,
@@ -26,6 +29,8 @@ def test_create_round():
 
 
 def test_create_duplicate_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
     data = {"name": "test_create_2",
             "reason": "Test",
             "track_id": track_id,
@@ -38,6 +43,8 @@ def test_create_duplicate_round():
 
 
 def test_update_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
     insert_data = {"name": "test_update_1",
                    "reason": "Test",
                    "track_id": track_id,
@@ -68,6 +75,8 @@ def test_update_invalid_round():
 
 
 def test_read_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
     insert_data = {"name": "test_read_1",
                    "reason": "Test",
                    "track_id": track_id,
@@ -109,3 +118,7 @@ def test_delete_round():
 def test_delete_invalid_round():
     delete_response = client.delete(f"/api/round/{1}")
     assert delete_response.status_code == 303
+
+
+
+    

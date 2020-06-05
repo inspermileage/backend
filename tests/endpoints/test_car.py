@@ -4,30 +4,21 @@ from main import app
 
 client = TestClient(app)
 
-
 def test_create_car():
-    car_response=client.post("/api/car/", json=data)
-    round_id =car_response.json()["id"]
 
-    data = {"speed": "23",
-            "distance": "23",
-            "engine_temp": "23",
-            "creation_time": "09:32:36.435350",
-            "energy_cons":"23",
-            "rpm"="23",
-            "battery": "23",
-            "round_id": round_id}
-    response = client.post("/api/car/", json=data)
-    assert response.status_code == 200
-    content = response.json()
-    assert content["speed"] == data["23"]
-    assert content["distance"] == data["23"]
-    assert content["engine_temp"] == data["23"]
-    assert content["creation_time"] == data["09:32:36.435350"]
-    assert content["energy_cons"] == data["23"]
-    assert content["rpm"] == data["23"]
-    assert content["battery"] == data["23"]
-    assert content["round_id"] == data["round_id"]
+    data = {"name": "Teste_car",
+            "description": "Testando",
+            "creation_date":  "2020-06-04"
+                }
+
+    car_response=client.post("/api/car/", json=data)
+    car_id =car_response.json()["id"]
+
+    assert car_response.status_code == 200
+    content = car_response.json()
+    assert content["name"] == data["name"]
+    assert content["description"] == data["description"]
+    assert content["creation_date"] == data["creation_date"]
     assert "id" in content
 
 def test_read_car_by_name():
@@ -38,6 +29,7 @@ def test_read_car_by_name():
 
     assert car_response.status_code == 200
     read_name = car_response.json()["name"]
+
 
     read_response = client.get(f"/api/car/{read_name}")
     response_data = car_response.json()

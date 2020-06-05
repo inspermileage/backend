@@ -6,8 +6,8 @@ client = TestClient(app)
 
 def test_create_car():
     
-    data = {"name": "Teste_car",
-            "description": "Testando",
+    data = {"name": "car_test",
+            "description": "Testing1",
             "creation_date":  "2020-06-04"
                 }
 
@@ -20,6 +20,19 @@ def test_create_car():
     assert content["description"] == data["description"]
     assert content["creation_date"] == data["creation_date"]
     assert "id" in content
+
+    def test_create_duplicate_round():
+    car_response=client.post("/api/car/", json=data)
+    car_id=car_response.json()["id"]
+    data = {"name": "car_test",
+            "description": "Testing2",
+            "creation_date":  "2020-06-04"
+                }
+
+    first_response = client.post("/api/car/", json=data)
+    assert first_response.status_code == 200
+    second_response = client.post("/api/car/", json=data)
+    assert second_response.status_code == 303
 
 def test_read_car_by_name():
     insert_data = { "name": "Teste",

@@ -9,24 +9,32 @@ track_response = client.post("/api/track/", json={"name": "Test", "description":
 track_id = track_response.json()["id"]
 
 
+
 def test_create_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
+
     data = {"name": "test_create_1",
             "reason": "Test",
-            "track_id": track_id}
-
+            "track_id": track_id,
+            "car_id": car_id}
     response = client.post("/api/round/", json=data)
     assert response.status_code == 200
     content = response.json()
     assert content["name"] == data["name"]
     assert content["reason"] == data["reason"]
     assert content["track_id"] == data["track_id"]
+    assert content["car_id"] == data["car_id"]
     assert "id" in content
 
 
 def test_create_duplicate_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
     data = {"name": "test_create_2",
             "reason": "Test",
-            "track_id": track_id}
+            "track_id": track_id,
+            "car_id":car_id}
 
     first_response = client.post("/api/round/", json=data)
     assert first_response.status_code == 200
@@ -35,9 +43,12 @@ def test_create_duplicate_round():
 
 
 def test_update_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
     insert_data = {"name": "test_update_1",
                    "reason": "Test",
-                   "track_id": track_id}
+                   "track_id": track_id,
+                   "car_id":car_id}
 
     insert_response = client.post("/api/round/", json=insert_data)
     assert insert_response.status_code == 200
@@ -64,9 +75,12 @@ def test_update_invalid_round():
 
 
 def test_read_round():
+    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
     insert_data = {"name": "test_read_1",
                    "reason": "Test",
-                   "track_id": track_id}
+                   "track_id": track_id,
+                   "car_id": car_id}
 
     insert_response = client.post("/api/round/", json=insert_data)
     assert insert_response.status_code == 200
@@ -78,6 +92,7 @@ def test_read_round():
     assert insert_data["name"] == response_data["name"]
     assert insert_data["reason"] == response_data["reason"]
     assert insert_data["track_id"] == response_data["track_id"]
+    assert insert_data["car_id"] == response_data["car_id"]
 
 
 def test_read_invalid_round():
@@ -103,3 +118,7 @@ def test_delete_round():
 def test_delete_invalid_round():
     delete_response = client.delete(f"/api/round/{1}")
     assert delete_response.status_code == 303
+
+
+
+    

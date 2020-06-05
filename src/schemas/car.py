@@ -13,48 +13,26 @@ class CarInDB(BaseModel):
     id: int
     name: str
     description: str
-    inst_vel: float
-    ref_date: date
-    dist: float
-    engine_temp: float
-    time:  time
-    energy_cons: float
-    rpm: int
-    batery: int
-    round_id: int
+    creation_date: date
     class Config:
         orm_mode = True
 
 class CarCreate(BaseModel):
     """
-    This class models the request body for creating a new Round in the database.
+    This class models the request body for creating a new Car in the database.
     """
-
-    name: Optional[str]=""
+    
+    name:str =""
     description: Optional[str]= ""
-    inst_vel: float
-    ref_date: Optional[date] = datetime.now().date()
-    dist: float
-    engine_temp: float
-    time:  time
-    energy_cons: float
-    rpm: int
-    batery: int
-    round_id: int
+    creation_date: Optional[date] = datetime.now().date()
 
 class CarUpdate(BaseModel):
     """
-    This class models the request body for updating a existing Round in the database.
+    This class models the request body for updating a existing Car in the database.
     """
-
+    
     name: Optional[str]
     description: Optional[str]
-    inst_vel: Optional[float]
-    ref_date: Optional[date]
-    dist: Optional[float]
-    engine_temp: Optional[float]
-    time: Optional[time]
-    energy_cons: Optional[float]
-    rpm: Optional[int]
-    batery: Optional[int]
-    round_id: Optional[int]
+    creation_date: Optional[date]
+
+ 

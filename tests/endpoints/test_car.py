@@ -4,6 +4,32 @@ from main import app
 
 client = TestClient(app)
 
+
+def test_create_car():
+    car_response=client.post("/api/car/", json=data)
+    round_id =car_response.json()["id"]
+
+    data = {"speed": "23",
+            "distance": "23",
+            "engine_temp": "23",
+            "creation_time": "09:32:36.435350",
+            "energy_cons":"23",
+            "rpm"="23",
+            "battery": "23",
+            "round_id": round_id}
+    response = client.post("/api/car/", json=data)
+    assert response.status_code == 200
+    content = response.json()
+    assert content["speed"] == data["23"]
+    assert content["distance"] == data["23"]
+    assert content["engine_temp"] == data["23"]
+    assert content["creation_time"] == data["09:32:36.435350"]
+    assert content["energy_cons"] == data["23"]
+    assert content["rpm"] == data["23"]
+    assert content["battery"] == data["23"]
+    assert content["round_id"] == data["round_id"]
+    assert "id" in content
+
 def test_read_car_by_name():
     insert_data = { "name": "Teste",
                     "description":"Teste", 

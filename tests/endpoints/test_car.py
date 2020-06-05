@@ -5,7 +5,7 @@ from main import app
 client = TestClient(app)
 
 def test_create_car():
-
+    
     data = {"name": "Teste_car",
             "description": "Testando",
             "creation_date":  "2020-06-04"
@@ -42,6 +42,14 @@ def test_read_car():
     assert read_response.status_code == 200
     assert type(read_response.json()) == list
 
+def test_read_invalid_car():
+    update_response = client.get(f"/api/car/{0}")
+    assert update_response.status_code == 404
+
+def test_read_invalid_car_two():
+    update_response = client.get(f"/api/carr/", headers={"name": "car"})
+    assert update_response.status_code == 404
+
 def test_update_car():
     insert_data = {"name": "Teste",
                     "description":"Teste", 
@@ -60,9 +68,7 @@ def test_update_car():
     assert update_response.json()["name"] == update_data["name"]
     assert update_response.json()["description"] == update_data["description"]
     assert update_response.json()["creation_date"] == update_data["creation_date"]
-    
-
-    
+        
 def test_delete_car():
     read_response = client.get(f"/api/car/")
     name_list = [name["name"] for name in read_response.json()]

@@ -49,14 +49,14 @@ def read_car(*, db: Session = Depends(get_db), name: str):
     return car_obj
 
 
-@router.put("/", response_model=CarInDB)
-def update_car(*, db: Session = Depends(get_db), car_info: CarUpdate):
+@router.put("/{car_id}", response_model=CarInDB)
+def update_car(*, db: Session = Depends(get_db), car_id: int, car_info: CarUpdate):
     """
     Updates the Car specified by the name field in the request body, with the rest of the body fields.
     """
 
     # Tries to find the car by name
-    car_obj = db.query(CarModel).filter(CarModel.name == car_info.name).first()
+    car_obj = db.query(CarModel).filter(CarModel.id == car_id).first()
     if not car_obj:
         raise HTTPException(status_code=404, detail="Car not found")
 

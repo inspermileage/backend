@@ -23,6 +23,27 @@ def test_read_car():
     read_response = client.get(f"/api/car/")
     assert read_response.status_code == 200
     assert type(read_response.json()) == list
+
+def test_update_car():
+    insert_data = {"name": "Teste",
+                    "description":"Teste", 
+                    "creation_date": "2020-06-04"}
+
+    insert_response = client.post("/api/car/", json=insert_data)
+    update_id = insert_response.json()["id"]
+    assert insert_response.status_code == 200
+    update_data = {
+        "name": "Teste updated",
+        "description": "Description updated",
+        "creation_date": "2020-06-05"
+        }
+    update_response = client.put(f"/api/car/{update_id}", json=update_data)
+    assert update_response.status_code == 200
+    assert update_response.json()["name"] == update_data["name"]
+    assert update_response.json()["description"] == update_data["description"]
+    assert update_response.json()["creation_date"] == update_data["creation_date"]
+    
+
     
 def test_delete_car():
     read_response = client.get(f"/api/car/")

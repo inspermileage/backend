@@ -21,7 +21,7 @@ def test_create_car():
     assert content["creation_date"] == data["creation_date"]
     assert "id" in content
 
-    def test_create_duplicate_round():
+def test_create_duplicate_round():
     car_response=client.post("/api/car/", json=data)
     car_id=car_response.json()["id"]
     data = {"name": "car_test",

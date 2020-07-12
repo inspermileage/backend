@@ -40,7 +40,7 @@ def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     return db_obj
 
 
-def read_one_by_id(*, db_session: Session, telemetryTelemetry_id: int) -> TelemetryModel:
+def read_one_by_id(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:
     """Fetches from the table, a Telemetry specified by the id
 
     Args:

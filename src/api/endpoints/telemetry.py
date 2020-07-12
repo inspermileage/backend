@@ -72,13 +72,13 @@ def create_Telemetry(*, db: Session = Depends(get_db), Telemetry_in: TelemetryCr
 
 
 @router.delete("/{telemetry_id}", response_model=TelemetryInDB)
-def delete_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
+def delete_Telemetry(*, db: Session = Depends(get_db), telemetry_id: int):
     """
     Deletes a Telemetry specified by the name.
     """
 
     try:
-        deleted_Telemetry = delete(db_session=db, Telemetry_id=Telemetry_id)
+        deleted_Telemetry = delete(db_session=db, telemetry_id=telemetry_id)
     except NonExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return deleted_Telemetry

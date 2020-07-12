@@ -131,7 +131,7 @@ def update(*, db_session: Session, track_name: str, obj_in: TrackUpdate) -> Trac
     db_session.refresh(track_exists)
     return track_exists
 
-def delete(*, db_session: Session, Track_name: str) -> TrackModel:
+def delete(*, db_session: Session, track_name: str) -> TrackModel:
     """Deletes from the table, a Track specified by the name
 
     Args:
@@ -145,9 +145,9 @@ def delete(*, db_session: Session, Track_name: str) -> TrackModel:
         NonExistenceException: if there is no Track with the specified name
     """
     Track_exists: TrackModel = db_session.query(TrackModel).filter(
-        TrackModel.name == Track_name).first()
+        TrackModel.name == track_name).first()
     if not Track_exists:
-        raise NonExistenceException(field=str(Track_name))
+        raise NonExistenceException(field=str(track_name))
 
     db_session.delete(Track_exists)
     db_session.commit()

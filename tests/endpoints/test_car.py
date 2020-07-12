@@ -21,9 +21,8 @@ def test_create_car():
     assert content["creation_date"] == data["creation_date"]
     assert "id" in content
 
-def test_create_duplicate_round():
-    car_response=client.post("/api/car/", json=data)
-    car_id=car_response.json()["id"]
+def test_create_duplicate_car():
+   
     data = {"name": "car_test",
             "description": "Testing2",
             "creation_date":  "2020-06-04"
@@ -100,3 +99,6 @@ def test_delete_car():
         assert delete_response.status_code == 200
         assert delete_response.json()["name"] ==name_remove
 
+def test_delete_invalid_round():
+    delete_response = client.delete(f"/api/car/{0}")
+    assert delete_response.status_code == 404

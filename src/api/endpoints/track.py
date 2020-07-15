@@ -1,12 +1,12 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-from src.crud.crud_track  import create, delete, read_all, read_one_by_name, update
-from src.crud.utils import ExistenceException, NonExistenceException
+
 from src.api.utils.db import get_db
-from src.models.track import Track as TrackModel
+from src.crud.crud_track import (create, delete, read_all, read_one_by_name,
+                                 update)
+from src.crud.utils import ExistenceException, NonExistenceException
 from src.schemas.track import TrackCreate, TrackInDB, TrackUpdate
 
 router = APIRouter()
@@ -22,6 +22,7 @@ def read_tracks(db: Session = Depends(get_db)):
 
 @router.get("/{track_name}", response_model=TrackInDB)
 def read_track(*, db: Session = Depends(get_db), track_name: str):
+
     """
     Returns a Track specified by the name
     """
@@ -30,6 +31,7 @@ def read_track(*, db: Session = Depends(get_db), track_name: str):
     except NonExistenceException as err:
         raise HTTPException(status_code=404, detail=err.message)
     return existing_round
+
 
 @router.post("/", response_model=TrackInDB)
 def create_track(*, db: Session = Depends(get_db), track_in: TrackCreate):
@@ -41,6 +43,7 @@ def create_track(*, db: Session = Depends(get_db), track_in: TrackCreate):
     except ExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return created_Track
+
 
 @router.put("/{track_name}", response_model=TrackInDB)
 def update_track(*, db: Session = Depends(get_db),track_name: str, track_info: TrackUpdate):
@@ -54,8 +57,6 @@ def update_track(*, db: Session = Depends(get_db),track_name: str, track_info: T
         raise HTTPException(status_code=303, detail=err.message)
     return updated_track
 
-
-
 @router.delete("/{track_name}", response_model=TrackInDB)
 def delete_track(*, db: Session = Depends(get_db), track_name: str):
     """
@@ -66,7 +67,3 @@ def delete_track(*, db: Session = Depends(get_db), track_name: str):
     except NonExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return deleted_Track
-  
-
-
-

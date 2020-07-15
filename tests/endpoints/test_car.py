@@ -99,6 +99,6 @@ def test_delete_car():
         assert delete_response.status_code == 200
         assert delete_response.json()["name"] ==name_remove
 
-def test_delete_invalid_round():
+def test_delete_invalid_car():
     delete_response = client.delete(f"/api/car/{0}")
     assert delete_response.status_code == 404

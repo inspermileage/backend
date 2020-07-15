@@ -118,7 +118,3 @@ def test_delete_round():
 def test_delete_invalid_round():
     delete_response = client.delete(f"/api/round/{1}")
     assert delete_response.status_code == 303
-
-
-
-    

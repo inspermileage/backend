@@ -1,12 +1,13 @@
+from datetime import date
 from typing import Dict, List
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-from datetime import date
+
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.telemetry import Telemetry as TelemetryModel
 from src.schemas.telemetry import TelemetryCreate
- 
+
 
 def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     """Creates a row with new data in the Telemetry table

@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Date, ForeignKey, Integer, String
-from src.database.base_class import Base 
+
+from src.database.base_class import Base
 
 
 class Car(Base):
@@ -8,4 +9,3 @@ class Car(Base):
     name= Column(String, nullable=True)
     description= Column(String, nullable=True)
     creation_date= Column(Date, nullable=False)
-  

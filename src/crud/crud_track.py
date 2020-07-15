@@ -1,11 +1,13 @@
+from datetime import date
 from typing import Dict, List
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-from datetime import date
+
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.track import Track as TrackModel
 from src.schemas.track import TrackCreate, TrackUpdate
+
 
 def create(*, db_session: Session, obj_in: TrackCreate) -> TrackModel:
     """Creates a row with new data in the Track table
@@ -27,10 +29,10 @@ def create(*, db_session: Session, obj_in: TrackCreate) -> TrackModel:
     # Unpacks dict values to the Telemetry database model
     db_obj: TrackModel = TrackModel(**in_data)
 
-    track_exists = db_session.query(TrackModel).filter(TrackModel.id == db_obj.id).first()
+    track_exists = db_session.query(TrackModel).filter(TrackModel.name == db_obj.name).first()
 
     if track_exists:
-        raise ExistenceException(field=db_obj.id)
+        raise ExistenceException(field=db_obj.name)
 
     # Inserts the telemetry data to the database
     db_session.add(db_obj)

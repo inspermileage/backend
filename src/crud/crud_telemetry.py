@@ -1,12 +1,13 @@
+from datetime import date
 from typing import Dict, List
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-from datetime import date
+
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.telemetry import Telemetry as TelemetryModel
 from src.schemas.telemetry import TelemetryCreate
- 
+
 
 def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     """Creates a row with new data in the Telemetry table
@@ -21,7 +22,7 @@ def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     Raises:
         ExistenceException: if there is a Telemetry with the same name in the table
     """
-
+ 
     # Transforms object to dict
     in_data: Dict = jsonable_encoder(obj_in)
 
@@ -40,7 +41,7 @@ def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     return db_obj
 
 
-def read_one_by_id(*, db_session: Session, telemetryTelemetry_id: int) -> TelemetryModel:
+def read_one_by_id(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:
     """Fetches from the table, a Telemetry specified by the id
 
     Args:
@@ -98,7 +99,7 @@ def read_all(*, db_session: Session) -> List[TelemetryModel]:
 
 
 
-def delete(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:
+def delete(*, db_session: Session, telemetry_id: int) -> TelemetryModel:
     """Deletes from the table, a Telemetry specified by the id
 
     Args:
@@ -112,9 +113,9 @@ def delete(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:
         NonExistenceException: if there is no Telemetry with the specified id
     """
     Telemetry_exists: TelemetryModel = db_session.query(TelemetryModel).filter(
-        TelemetryModel.id == Telemetry_id).first()
+        TelemetryModel.id == telemetry_id).first()
     if not Telemetry_exists:
-        raise NonExistenceException(field=str(Telemetry_id))
+        raise NonExistenceException(field=str(telemetry_id))
 
     db_session.delete(Telemetry_exists)
     db_session.commit()

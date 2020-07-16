@@ -1,8 +1,8 @@
-from pydantic import BaseModel, Field
 from datetime import date, datetime, time
 from enum import Enum
 from typing import Optional
 
+from pydantic import BaseModel, Field
 
 
 class CarInDB(BaseModel):
@@ -34,5 +34,3 @@ class CarUpdate(BaseModel):
     name: Optional[str]
     description: Optional[str]
     creation_date: Optional[date]
-
- 

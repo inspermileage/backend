@@ -21,9 +21,8 @@ def test_create_car():
     assert content["creation_date"] == data["creation_date"]
     assert "id" in content
 
-    def test_create_duplicate_round():
-    car_response=client.post("/api/car/", json=data)
-    car_id=car_response.json()["id"]
+def test_create_duplicate_car():
+   
     data = {"name": "car_test",
             "description": "Testing2",
             "creation_date":  "2020-06-04"
@@ -81,6 +80,16 @@ def test_update_car():
     assert update_response.json()["name"] == update_data["name"]
     assert update_response.json()["description"] == update_data["description"]
     assert update_response.json()["creation_date"] == update_data["creation_date"]
+
+def test_update_invalid_car():
+    update_data = {
+        "name": "Teste updated",
+        "description": "Description updated",
+        "creation_date": "2020-06-05"
+        }
+
+    update_response = client.put(f"/api/car/{0}", json=update_data)
+    assert update_response.status_code == 404
         
 def test_delete_car():
     read_response = client.get(f"/api/car/")
@@ -90,3 +99,6 @@ def test_delete_car():
         assert delete_response.status_code == 200
         assert delete_response.json()["name"] ==name_remove
 
+def test_delete_invalid_car():
+    delete_response = client.delete(f"/api/car/{0}")
+    assert delete_response.status_code == 404

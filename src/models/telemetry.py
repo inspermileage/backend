@@ -17,4 +17,3 @@ class Telemetry(Base):
     battery = Column(Integer, nullable=True)
     round_id = Column(Integer, ForeignKey("round.id"))
     rounds = relationship(Round, primaryjoin=round_id == Round.id)
-

@@ -1,14 +1,17 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
 from fastapi.encoders import jsonable_encoder
+from sqlalchemy.orm import Session
 
 from src.api.utils.db import get_db
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.schemas.car import CarCreate, CarInDB, CarUpdate
 from src.models.car import Car as CarModel
+
 from src.crud.crud_car import create, delete, read_all, read_one, update
+
+from src.schemas.car import CarCreate, CarInDB, CarUpdate
+
 
 router = APIRouter()
 

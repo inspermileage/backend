@@ -2,11 +2,11 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from datetime import date
+
 from src.api.utils.db import get_db
-from src.models.telemetry import Telemetry as TelemetryModel
 from src.crud.crud_telemetry import create, delete, read_all, read_one_by_id
 from src.crud.utils import ExistenceException, NonExistenceException
+from src.models.telemetry import Telemetry as TelemetryModel
 from src.schemas.telemetry import TelemetryCreate, TelemetryInDB
 
 router = APIRouter()
@@ -72,14 +72,13 @@ def create_Telemetry(*, db: Session = Depends(get_db), Telemetry_in: TelemetryCr
 
 
 @router.delete("/{telemetry_id}", response_model=TelemetryInDB)
-def delete_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
+def delete_Telemetry(*, db: Session = Depends(get_db), telemetry_id: int):
     """
     Deletes a Telemetry specified by the name.
     """
 
     try:
-        deleted_Telemetry = delete(db_session=db, Telemetry_id=Telemetry_id)
+        deleted_Telemetry = delete(db_session=db, telemetry_id=telemetry_id)
     except NonExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return deleted_Telemetry
-  

@@ -6,7 +6,6 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
-
 class TelemetryInDB(BaseModel):
     """
     This represents the object stored in the database, it is similar to the `/models/car`.

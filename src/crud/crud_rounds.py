@@ -4,12 +4,10 @@ from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.models.round import Round as RoundModel
-from src.schemas.round import RoundCreate, RoundUpdate
-
 from src.models.car import Car as CarModel
+from src.models.round import Round as RoundModel
 from src.schemas.car import CarCreate, CarUpdate
-
+from src.schemas.round import RoundCreate, RoundUpdate
 
 
 def create(*, db_session: Session, obj_in: RoundCreate) -> RoundModel:

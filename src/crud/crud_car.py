@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from datetime import date
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.car import Car as CarModel
-from src.schemas.car import CarCreate
+from src.schemas.car import CarCreate, CarUpdate
  
 
 def create(*, db: Session, car_in: CarCreate) -> CarModel:
@@ -28,6 +28,11 @@ def create(*, db: Session, car_in: CarCreate) -> CarModel:
     # Unpacks dict values to the Telemetry database model
     db_obj: CarModel = CarModel(**obj_in_data)
 
+    car_exists = db.query(CarModel).filter(CarModel.name == db_obj.name).first()
+
+    if car_exists:
+        raise ExistenceException(field=db_obj.name)
+
     # Inserts the car data to the database
     db.add(db_obj)
     db.commit()
@@ -48,7 +53,7 @@ def read_all(*, db: Session) -> List[CarModel]:
     return obj_list
 
 
-def read_one(*, db: Session, name:str) -> CarModel:
+def read_one(*, db_session: Session, name:str) -> CarModel:
     """Fetches from the table, a Car specified by the name
 
     Args:
@@ -61,9 +66,9 @@ def read_one(*, db: Session, name:str) -> CarModel:
     Raises:
         HTTPException: if Car is not found
     """
-    car_obj = db.query(CarModel).filter(CarModel.name == name).first()
+    car_obj: CarModel = db_session.query(CarModel).filter(CarModel.name == name).first()
     if not car_obj:
-        raise HTTPException(status_code=404, detail="Car not found")
+        raise NonExistenceException(field=str(name))
     return car_obj
 
 def update(*, db: Session, car_id: int, car_info: CarUpdate) -> CarModel:
@@ -87,11 +92,12 @@ def update(*, db: Session, car_id: int, car_info: CarUpdate) -> CarModel:
 
 def delete(*, db: Session, name: str) -> CarModel:
     
-    car_obj = db.query(CarModel).filter(CarModel.name == name).first()
 
-    if not car_obj:
-        raise HTTPException(status_code=404, detail="Car not found")
+    car_exists: CarModel = db.query(CarModel).filter(
+        CarModel.name == name).first()
+    if not car_exists:
+        raise NonExistenceException(field=str(name))
 
-    db.delete(car_obj)
+    db.delete(car_exists)
     db.commit()
-    return car_obj
+    return car_exists

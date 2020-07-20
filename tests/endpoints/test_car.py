@@ -23,7 +23,7 @@ def test_create_car():
 
 def test_create_duplicate_car():
    
-    data = {"name": "car_test",
+    data = {"name": "car_testee",
             "description": "Testing2",
             "creation_date":  "2020-06-04"
                 }
@@ -34,7 +34,7 @@ def test_create_duplicate_car():
     assert second_response.status_code == 303
 
 def test_read_car_by_name():
-    insert_data = { "name": "Teste",
+    insert_data = { "name": "Teste3",
                     "description":"Teste", 
                     "creation_date": "2020-06-02"}
     car_response=client.post("/api/car/", json=insert_data)
@@ -63,8 +63,8 @@ def test_read_invalid_car_two():
     assert update_response.status_code == 404
 
 def test_update_car():
-    insert_data = {"name": "Teste",
-                    "description":"Teste", 
+    insert_data = {"name": "Teste4",
+                    "description":"Testee", 
                     "creation_date": "2020-06-04"}
 
     insert_response = client.post("/api/car/", json=insert_data)
@@ -101,4 +101,4 @@ def test_delete_car():
 
 def test_delete_invalid_car():
     delete_response = client.delete(f"/api/car/{0}")
-    assert delete_response.status_code == 404
+    assert delete_response.status_code == 303

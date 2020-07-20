@@ -29,7 +29,7 @@ def test_create_round():
 
 
 def test_create_duplicate_round():
-    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": "Testando3", "description":"Teste", "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
     data = {"name": "test_create_2",
             "reason": "Test",
@@ -43,7 +43,7 @@ def test_create_duplicate_round():
 
 
 def test_update_round():
-    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": "Teste45", "description":"Teste", "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
     insert_data = {"name": "test_update_1",
                    "reason": "Test",
@@ -75,7 +75,7 @@ def test_update_invalid_round():
 
 
 def test_read_round():
-    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": "Teste60", "description":"Teste", "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
     insert_data = {"name": "test_read_1",
                    "reason": "Test",

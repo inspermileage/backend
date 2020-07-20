@@ -9,7 +9,7 @@ from src.models.track import Track
 class Round(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
-    description = Column(String, nullable=True)
+    description = Column(String, unique=True,  nullable=True)
     reason = Column(String, nullable=False)
     ref_date = Column(Date, nullable=False)
     track_id = Column(Integer, ForeignKey("track.id"), nullable=False)

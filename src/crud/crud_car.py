@@ -76,7 +76,7 @@ def update(*, db: Session, car_id: int, car_info: CarUpdate) -> CarModel:
     # Tries to find the car by id
     car_obj = db.query(CarModel).filter(CarModel.id == car_id).first()
     if not car_obj:
-        raise HTTPException(status_code=404, detail="id not found")
+        raise NonExistenceException(field=str(car_id))
 
     # Iterates request body and updates the car object
     obj_data = jsonable_encoder(car_obj)

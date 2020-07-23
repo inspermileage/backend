@@ -78,8 +78,7 @@ def test_update_car():
     update_response = client.put(f"/api/car/{update_id}", json=update_data)
     assert update_response.status_code == 200
     assert update_response.json()["name"] == update_data["name"]
-    assert update_response.json()["description"] == update_data["description"]
-    assert update_response.json()["creation_date"] == update_data["creation_date"]
+
 
 def test_update_invalid_car():
     update_data = {

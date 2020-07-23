@@ -31,6 +31,13 @@ class RoundInDB(BaseModel):
     class Config:
         orm_mode = True
 
+class RoundOutDB(BaseModel):
+
+    id: int
+    class Config:
+        orm_mode = True
+     
+
 
 class RoundCreate(BaseModel):
     """

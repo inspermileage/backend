@@ -9,7 +9,7 @@ from src.crud.utils import ExistenceException, NonExistenceException
 from src.crud.crud_car import (create, delete, read_all,
                                read_one, update)
 
-from src.schemas.car import CarCreate, CarInDB, CarUpdate
+from src.schemas.car import CarCreate, CarInDB, CarUpdate, CarOutDB
 
 
 router = APIRouter()
@@ -32,7 +32,7 @@ def read_car(db: Session = Depends(get_db)):
     """
     Returns a list of all the car entries in the database.
     """
-
+ 
     return read_all(db=db)
 
 
@@ -49,7 +49,7 @@ def read_car_by_name(*, db: Session = Depends(get_db), car_name: str):
     return existing_car
 
 
-@router.put("/{car_id}", response_model=CarInDB)
+@router.put("/{car_id}", response_model=CarOutDB)
 def update_car(*, db: Session = Depends(get_db), car_id: int, car_info: CarUpdate):
     """
     Updates the Car specified by the ID field in the request body, with the rest of the body fields.
@@ -62,7 +62,7 @@ def update_car(*, db: Session = Depends(get_db), car_id: int, car_info: CarUpdat
     return updated_car
 
 
-@router.delete("/{name}", response_model=CarInDB)
+@router.delete("/{name}", response_model=CarOutDB)
 def delete_car(*, db: Session = Depends(get_db), name: str):
     """
     Deletes a Car specified by the name.

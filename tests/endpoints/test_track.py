@@ -44,7 +44,7 @@ def test_update_track():
 
     update_response = client.put(f"/api/track/{update_name}", json=update_data)
     assert update_response.status_code == 200
-    assert update_response.json()["description"] == update_data["description"]
+    assert update_response.json()["name"] == update_data["name"]
 
 def test_update_invalid_track():
     update_data = {

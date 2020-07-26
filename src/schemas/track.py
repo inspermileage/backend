@@ -16,6 +16,14 @@ class TrackInDB(BaseModel):
         orm_mode = True
 
 
+class TrackOutDB(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
+
 class TrackCreate(BaseModel):
     """
     THis class models the request body for creating a new Track in the database.

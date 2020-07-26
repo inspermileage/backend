@@ -39,6 +39,12 @@ class TelemetryCreate(BaseModel):
     #telemetry_timestamp: Optional[time] = datetime.now()
     round_id: int
 
+class TelemetryOutDB(BaseModel):
+
+    id: int
+    class Config:
+        orm_mode = True
+
 # class TelemetryUpdate(BaseModel):
 #     """
 #     This class models the request body for updating a existing Telemtry data in the database.

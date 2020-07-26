@@ -7,7 +7,7 @@ from src.api.utils.db import get_db
 from src.crud.crud_telemetry import create, delete, read_all, read_one_by_id
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.telemetry import Telemetry as TelemetryModel
-from src.schemas.telemetry import TelemetryCreate, TelemetryInDB
+from src.schemas.telemetry import TelemetryCreate, TelemetryInDB, TelemetryOutDB
 
 router = APIRouter()
 
@@ -71,7 +71,7 @@ def create_Telemetry(*, db: Session = Depends(get_db), Telemetry_in: TelemetryCr
 #     return updated_Telemetry
 
 
-@router.delete("/{telemetry_id}", response_model=TelemetryInDB)
+@router.delete("/{telemetry_id}", response_model=TelemetryOutDB)
 def delete_Telemetry(*, db: Session = Depends(get_db), telemetry_id: int):
     """
     Deletes a Telemetry specified by the name.

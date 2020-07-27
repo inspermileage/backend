@@ -8,16 +8,16 @@ client = TestClient(app)
 
 def test_create_telemetry():
     # Creates a track so tests dont give a FK error on inserting round
-    track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
+    track_response = client.post("/api/track/", json={"name": "teste track", "description": "Test track"})
     track_id = track_response.json()["id"]
 
-    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": "Teste car", "description":"Teste car", "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
 
     # Creates a round so tests dont give a FK error on inserting round
     round_response = client.post("/api/round/", json={
-    "name": "string",
-    "description": "string",
+    "name": "string123",
+    "description": "string4563",
     "reason": "Test",
     "ref_date": "2020-07-26",
     "track_id": track_id,
@@ -30,7 +30,7 @@ def test_create_telemetry():
             "speed": 0,
             "distance": 0,
             "engine_temp": 0,
-            "creation_time": "2020-07-26T18:14:17.378Z",
+            "creation_time": "2020-07-26T18:14:17.37890",
             "energy_cons": 0,
             "rpm": 0,
             "battery": 0,
@@ -53,16 +53,16 @@ def test_create_telemetry():
     assert "id" in content
 
 def test_create_duplicate_telemetry():
-    track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
+    track_response = client.post("/api/track/", json={"name": "Test1283", "description": "Test4uu3"})
     track_id = track_response.json()["id"]
 
-    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": "Teste12344", "description":"Test4322e", "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
 
     # Creates a round so tests dont give a FK error on inserting round
     round_response = client.post("/api/round/", json={
-    "name": "string",
-    "description": "string",
+    "name": "string3444",
+    "description": "string44322",
     "reason": "Test",
     "ref_date": "2020-07-26",
     "track_id": track_id,
@@ -86,16 +86,16 @@ def test_create_duplicate_telemetry():
     assert second_response.status_code == 303
 
 def test_read_telemetry_by_id():
-    track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
+    track_response = client.post("/api/track/", json={"name": "Test3333", "description": "Test232e"})
     track_id = track_response.json()["id"]
 
-    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": "Testeewdd", "description":"Testeefef", "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
 
     # Creates a round so tests dont give a FK error on inserting round
     round_response = client.post("/api/round/", json={
-    "name": "string",
-    "description": "string",
+    "name": "string33",
+    "description": "st3ee3ering",
     "reason": "Test",
     "ref_date": "2020-07-26",
     "track_id": track_id,

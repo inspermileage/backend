@@ -5,8 +5,8 @@ from main import app
 client = TestClient(app)
 
 # Creates a track so tests dont give a FK error on inserting round
-track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
-track_id = track_response.json()["id"]
+# track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
+# track_id = track_response.json()["id"]
 
 
 

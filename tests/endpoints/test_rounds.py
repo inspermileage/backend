@@ -11,6 +11,10 @@ def random_lower_string() -> str:
 
 # Creates a track so tests dont give a FK error on inserting round
 
+# track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
+# track_id = track_response.json()["id"]
+
+
 
 
 def test_create_round():

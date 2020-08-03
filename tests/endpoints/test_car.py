@@ -1,18 +1,25 @@
 from starlette.testclient import TestClient
-
+import random
+import string
+from typing import Dict
 from main import app
 
 client = TestClient(app)
 
+def random_lower_string() -> str:
+    return "".join(random.choices(string.ascii_lowercase, k=32))
+
+
+
 def test_create_car():
     
-    data = {"name": "car_test",
-            "description": "Testing1",
+    data = {"name": random_lower_string(),
+            "description": random_lower_string(),
             "creation_date":  "2020-06-04"
                 }
 
     car_response=client.post("/api/car/", json=data)
-    car_id =car_response.json()["id"]
+   # car_id =car_response.json()["id"]
 
     assert car_response.status_code == 200
     content = car_response.json()
@@ -23,8 +30,8 @@ def test_create_car():
 
 def test_create_duplicate_car():
    
-    data = {"name": "car_testee",
-            "description": "Testing2",
+    data = {"name": random_lower_string(),
+            "description": random_lower_string(),
             "creation_date":  "2020-06-04"
                 }
 
@@ -34,8 +41,8 @@ def test_create_duplicate_car():
     assert second_response.status_code == 303
 
 def test_read_car_by_name():
-    insert_data = { "name": "Teste3",
-                    "description":"Teste", 
+    insert_data = { "name": random_lower_string(),
+                    "description":random_lower_string(), 
                     "creation_date": "2020-06-02"}
     car_response=client.post("/api/car/", json=insert_data)
 
@@ -63,16 +70,16 @@ def test_read_invalid_car_two():
     assert update_response.status_code == 404
 
 def test_update_car():
-    insert_data = {"name": "Teste4",
-                    "description":"Testee", 
+    insert_data = {"name": random_lower_string(),
+                    "description":random_lower_string(), 
                     "creation_date": "2020-06-04"}
 
     insert_response = client.post("/api/car/", json=insert_data)
     update_id = insert_response.json()["id"]
     assert insert_response.status_code == 200
     update_data = {
-        "name": "Teste updated",
-        "description": "Description updated",
+        "name":  random_lower_string(),
+        "description":  random_lower_string(),
         "creation_date": "2020-06-05"
         }
     update_response = client.put(f"/api/car/{update_id}", json=update_data)
@@ -82,8 +89,8 @@ def test_update_car():
 
 def test_update_invalid_car():
     update_data = {
-        "name": "Teste updated",
-        "description": "Description updated",
+        "name": random_lower_string(),
+        "description": random_lower_string(),
         "creation_date": "2020-06-05"
         }
 

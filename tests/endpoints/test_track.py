@@ -1,17 +1,24 @@
 from starlette.testclient import TestClient
-
+import random
+import string
+from typing import Dict
 from main import app
 
 client = TestClient(app)
 
 
+def random_lower_string() -> str:
+    return "".join(random.choices(string.ascii_lowercase, k=32))
 
 
+
+
+ 
 def test_create_track():
     
 
-    data = {"name": "test_create_1",
-            "description": "Test"
+    data = {"name": random_lower_string(),
+            "description": random_lower_string()
              }
     response = client.post("/api/track/", json=data)
     assert response.status_code == 200
@@ -21,8 +28,8 @@ def test_create_track():
     assert "id" in content
 
 def test_create_duplicate_track():
-    data = {"name": "test_create_2",
-            "description": "Test"}
+    data = {"name": random_lower_string(),
+            "description": random_lower_string()}
 
     first_response = client.post("/api/track/", json=data)
     assert first_response.status_code == 200
@@ -30,16 +37,16 @@ def test_create_duplicate_track():
     assert second_response.status_code == 303
 
 def test_update_track():
-    insert_data = {"name": "test_update_1",
-                   "description": "Test"}
+    insert_data = {"name": random_lower_string(),
+                   "description": random_lower_string()}
 
     insert_response = client.post("/api/track/", json=insert_data)
     assert insert_response.status_code == 200
     update_name = insert_response.json()["name"]
 
     update_data = {
-        "name": "Name updated",
-        "description": "description updated"
+        "name":random_lower_string(),
+        "description": random_lower_string()
     }
 
     update_response = client.put(f"/api/track/{update_name}", json=update_data)
@@ -48,8 +55,8 @@ def test_update_track():
 
 def test_update_invalid_track():
     update_data = {
-        "name": "name updated",
-        "description": "invalid update "
+        "name": random_lower_string(),
+        "description":random_lower_string()
     }
 
     update_response = client.put(f"/api/track/{0}", json=update_data)
@@ -59,8 +66,8 @@ def test_update_invalid_track():
 
 def test_read_track():
     
-    insert_data = {"name": "test_read_1",
-                    "description": "reading data"}
+    insert_data = {"name": random_lower_string(),
+                    "description": random_lower_string()}
 
     insert_response = client.post("/api/track/", json=insert_data)
     assert insert_response.status_code == 200

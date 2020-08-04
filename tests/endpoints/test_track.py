@@ -92,12 +92,16 @@ def test_read_invalid_track():
 
   
 def test_delete_track():
-    read_response = client.get(f"/api/track/")
-    name_list = [name["name"] for name in read_response.json()]
-    for name_remove in name_list:
-        delete_response = client.delete(f"/api/track/{name_remove}")
-        assert delete_response.status_code == 200
-        assert delete_response.json()["name"] == name_remove
+    insert_data = {"name": random_lower_string(),
+                    "description": random_lower_string()}
+    insert_response = client.post("/api/track/", json=insert_data)  
+    track_name=insert_response.json()["name"]          
+    delete_response = client.delete(f"/api/track/{track_name}") 
+    assert delete_response.status_code == 200
+    assert delete_response.json()["name"] == track_name
+
+
+
 
 def test_delete_invalid_track():
     delete_response = client.delete(f"/api/track/{1}")

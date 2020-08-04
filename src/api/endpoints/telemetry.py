@@ -21,7 +21,7 @@ def read_Telemetrys(db: Session = Depends(get_db)):
     return read_all(db_session=db)
 
 
-@router.get("/{telemetry_id}", response_model=TelemetryInDB)
+@router.get("/{Telemetry_id}", response_model=TelemetryInDB)
 def read_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
     """
     Returns a Round specified by the id.

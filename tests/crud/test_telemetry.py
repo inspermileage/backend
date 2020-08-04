@@ -76,7 +76,7 @@ def test_delete(db_session: Session) -> TelemetryModel:
     speed= 24.4
     distance= 120.7
     engine_temp= 20.3
-    creation_time =  "2020-11-04 00:05:23.283+00:00"
+    creation_time =  "2020-11-04 00:05:23"
     energy_cons= 27.9
     rpm= 800
     battery= 60

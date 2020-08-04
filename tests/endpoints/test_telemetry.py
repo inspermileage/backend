@@ -113,7 +113,7 @@ def test_read_telemetry_by_id():
             "speed": 0,
             "distance": 0,
             "engine_temp": 0,
-            "creation_time": "2020-07-26T18:14:17.378Z",
+            "creation_time": "2020-07-26T18:14:17.378000",
             "energy_cons": 0,
             "rpm": 0,
             "battery": 0,
@@ -151,7 +151,7 @@ def test_read_invalid_telemetry():
     assert update_response.status_code == 404
 
 def test_read_invalid_telemetry_two():
-    update_response = client.get(f"/api/telemetryy/", headers={"id": 0})
+    update_response = client.get(f"/api/telemetryy/", headers={"id": "0"})
     assert update_response.status_code == 404
 
 

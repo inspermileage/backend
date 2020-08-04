@@ -136,12 +136,26 @@ def test_read_rounds():
 
 
 def test_delete_round():
-    read_response = client.get(f"/api/round/")
-    id_list = [id["id"] for id in read_response.json()]
-    for id_remove in id_list:
-        delete_response = client.delete(f"/api/round/{id_remove}")
-        assert delete_response.status_code == 200
-        assert delete_response.json()["id"] == id_remove
+    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
+    car_id=car_response.json()["id"]
+
+    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_id = track_response.json()["id"]
+
+
+    data = {"name": random_lower_string(),
+            "description": random_lower_string(),
+            "reason": "Test",
+            "track_id": track_id,
+            "car_id": car_id}
+    response = client.post("/api/round/", json=data)
+    round_id=response.json()["id"]
+
+
+
+    delete_response = client.delete(f"/api/round/{round_id}")
+    assert delete_response.status_code == 200
+    assert delete_response.json()["id"] == round_id
 
 
 def test_delete_invalid_round():

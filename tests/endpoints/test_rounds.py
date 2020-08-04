@@ -1,20 +1,32 @@
 from starlette.testclient import TestClient
-
+import random
+import string
+from typing import Dict
 from main import app
 
 client = TestClient(app)
 
+def random_lower_string() -> str:
+    return "".join(random.choices(string.ascii_lowercase, k=32))
+
 # Creates a track so tests dont give a FK error on inserting round
+
 # track_response = client.post("/api/track/", json={"name": "Test", "description": "Test"})
 # track_id = track_response.json()["id"]
 
 
 
+
 def test_create_round():
-    car_response=client.post("/api/car/", json={ "name": "Teste", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
 
-    data = {"name": "test_create_1",
+    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_id = track_response.json()["id"]
+
+
+    data = {"name": random_lower_string(),
+            "description": random_lower_string(),
             "reason": "Test",
             "track_id": track_id,
             "car_id": car_id}
@@ -29,10 +41,16 @@ def test_create_round():
 
 
 def test_create_duplicate_round():
-    car_response=client.post("/api/car/", json={ "name": "Testando3", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
-    data = {"name": "test_create_2",
-            "reason": "Test",
+
+    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_id = track_response.json()["id"]
+
+
+    data = {"name": random_lower_string(),
+            "description": random_lower_string(),
+            "reason":"Test",
             "track_id": track_id,
             "car_id":car_id}
 
@@ -43,9 +61,15 @@ def test_create_duplicate_round():
 
 
 def test_update_round():
-    car_response=client.post("/api/car/", json={ "name": "Teste45", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
-    insert_data = {"name": "test_update_1",
+
+    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_id = track_response.json()["id"]
+
+
+    insert_data = {"name": random_lower_string(),
+                    "description": random_lower_string(),
                    "reason": "Test",
                    "track_id": track_id,
                    "car_id":car_id}
@@ -55,7 +79,7 @@ def test_update_round():
     update_id = insert_response.json()["id"]
 
     update_data = {
-        "description": "Description updated",
+        "description": random_lower_string(),
         "ref_date": "2020-10-20"
     }
 
@@ -66,7 +90,7 @@ def test_update_round():
 
 def test_update_invalid_round():
     update_data = {
-        "description": "Description updated",
+        "description": random_lower_string(),
         "ref_date": "2020-10-20"
     }
 
@@ -75,9 +99,14 @@ def test_update_invalid_round():
 
 
 def test_read_round():
-    car_response=client.post("/api/car/", json={ "name": "Teste60", "description":"Teste", "creation_date": "2020-06-02"})
+    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
     car_id=car_response.json()["id"]
-    insert_data = {"name": "test_read_1",
+
+    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_id = track_response.json()["id"]
+
+    insert_data = {"name": random_lower_string(),
+                  "description": random_lower_string(),
                    "reason": "Test",
                    "track_id": track_id,
                    "car_id": car_id}

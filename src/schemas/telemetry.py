@@ -19,6 +19,8 @@ class TelemetryInDB(BaseModel):
     energy_cons: float
     rpm: int
     battery: int
+    round_id: int
+
    # telemtery_timestamp: datetime
     class Config:
         orm_mode = True

@@ -23,7 +23,7 @@ def test_create_item(db_session: Session) -> TelemetryModel:
     speed= 24.4
     distance= 120.7
     engine_temp= 20.3
-    creation_time =  "2020-11-04 00:05:23.283+00:00"
+    creation_time =  "2020-11-04 00:05:23"
     energy_cons= 27.9
     rpm= 800
     battery= 60
@@ -34,7 +34,7 @@ def test_create_item(db_session: Session) -> TelemetryModel:
     assert item.speed== speed
     assert item.distance == distance
     assert item.engine_temp == engine_temp
-    assert item.creation_time.strftime("%m/%d/%Y, %H:%M:%S") == creation_time
+    assert item.creation_time.strftime("%Y-%m-%d %H:%M:%S") == creation_time
     assert item.energy_cons == energy_cons
     assert item.rpm == rpm
     assert item.battery == battery
@@ -46,7 +46,7 @@ def test_read_one_by_id(db_session: Session) -> TelemetryModel:
     speed= 24.4
     distance= 120.7
     engine_temp= 20.3
-    creation_time =  "2020-11-04 00:05:23.283+00:00"
+    creation_time =  "2020-11-04 00:05:23"
     energy_cons= 27.9
     rpm= 800
     battery= 60
@@ -58,7 +58,7 @@ def test_read_one_by_id(db_session: Session) -> TelemetryModel:
     assert read_item.speed== speed
     assert read_item.distance == distance
     assert read_item.engine_temp == engine_temp
-    assert read_item.creation_time.strftime("%m/%d/%Y, %H:%M:%S") == creation_time
+    assert read_item.creation_time.strftime("%Y-%m-%d %H:%M:%S") == creation_time
     assert read_item.energy_cons == energy_cons
     assert read_item.rpm == rpm
     assert read_item.battery == battery

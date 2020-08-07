@@ -19,7 +19,7 @@ def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     Returns:
         The object TelemetryModel that was inserted to the table
 
-    Raises:
+    Raises: 
         ExistenceException: if there is a Telemetry with the same name in the table
     """
  

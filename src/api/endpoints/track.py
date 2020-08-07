@@ -7,7 +7,7 @@ from src.api.utils.db import get_db
 from src.crud.crud_track import (create, delete, read_all, read_one_by_name,
                                  update)
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.schemas.track import TrackCreate, TrackInDB, TrackUpdate
+from src.schemas.track import TrackCreate, TrackInDB, TrackUpdate, TrackOutDB
 
 router = APIRouter()
 
@@ -45,7 +45,7 @@ def create_track(*, db: Session = Depends(get_db), track_in: TrackCreate):
     return created_Track
 
 
-@router.put("/{track_name}", response_model=TrackInDB)
+@router.put("/{track_name}", response_model=TrackOutDB)
 def update_track(*, db: Session = Depends(get_db),track_name: str, track_info: TrackUpdate):
     """
     Updates the Track specified by the name field in the request body, with the rest of the body fields.
@@ -57,7 +57,7 @@ def update_track(*, db: Session = Depends(get_db),track_name: str, track_info: T
         raise HTTPException(status_code=303, detail=err.message)
     return updated_track
 
-@router.delete("/{track_name}", response_model=TrackInDB)
+@router.delete("/{track_name}", response_model=TrackOutDB)
 def delete_track(*, db: Session = Depends(get_db), track_name: str):
     """
     Deletes a Track specified by the name.

@@ -17,6 +17,20 @@ class CarInDB(BaseModel):
     class Config:
         orm_mode = True
 
+
+
+class CarOutDB(BaseModel):
+
+
+    id: int
+    name:str
+
+    class Config:
+            orm_mode = True
+
+
+
+
 class CarCreate(BaseModel):
     """
     This class models the request body for creating a new Car in the database.

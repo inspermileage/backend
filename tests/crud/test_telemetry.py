@@ -1,7 +1,4 @@
 from sqlalchemy.orm import Session
-import random
-import string
-from typing import Dict
 from src.crud.crud_telemetry import (create,read_one_by_id, read_all, delete) 
                            
 from src.schemas.telemetry import TelemetryCreate

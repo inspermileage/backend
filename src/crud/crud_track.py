@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Dict, List
 
 from fastapi.encoders import jsonable_encoder

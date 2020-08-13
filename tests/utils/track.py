@@ -21,3 +21,4 @@ def create_random_track(db: Session) -> TrackModel:
 
     item = create(db_session=db, obj_in=item_in)
     return item
+    

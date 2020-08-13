@@ -1,11 +1,11 @@
 from sqlalchemy.orm import Session
 import random
 import string
-from typing import Dict
+
 from src.crud.crud_car import (create, delete, read_all,
                                read_one, update)
 from src.schemas.car import CarCreate,CarUpdate
-from typing import Dict, Generator
+from typing import Dict
 from src.models.car import Car as CarModel
 
 from src.crud.utils import ExistenceException, NonExistenceException

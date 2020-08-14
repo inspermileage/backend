@@ -28,23 +28,11 @@ def read_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int):
     """
 
     try:
-        existing_round = read_one_by_id(db_session=db, Telemetry_id=Telemetry_id)
+        existing_round = read_one_by_id(
+            db_session=db, Telemetry_id=Telemetry_id)
     except NonExistenceException as err:
         raise HTTPException(status_code=404, detail=err.message)
     return existing_round
-
-
-# @router.get("/{telemetry_data_teste}", response_model=TelemetryInDB)
-# def read_Telemetry_by_id(*, db: Session = Depends(get_db), Telemetry_ref_date: date):
-#     """
-#     Returns a Round specified by the date.
-#     """
-
-#     try:
-#         existing_round = read_one_by_date(db_session=db, Telemetry_ref_date=Telemetry_ref_date)
-#     except NonExistenceException as err:
-#         raise HTTPException(status_code=404, detail=err.message)
-#     return existing_round
 
 
 @router.post("/", response_model=TelemetryInDB)
@@ -59,22 +47,10 @@ def create_Telemetry(*, db: Session = Depends(get_db), Telemetry_in: TelemetryCr
     return created_Telemetry
 
 
-# @router.put("/", response_model=TelemetryInDB)
-# def update_Telemetry(*, db: Session = Depends(get_db), Telemetry_id: int, Telemetry_info: TelemetryUpdate):
-#     """
-#     Updates the Telemetry specified by id, with the body request fields.
-#     """
-#     try:
-#         updated_Telemetry = update(db_session=db, Telemetry_id=Telemetry_id, obj_in=Telemetry_info)
-#     except NonExistenceException as err:
-#         raise HTTPException(status_code=303, detail=err.message)
-#     return updated_Telemetry
-
-
 @router.delete("/{telemetry_id}", response_model=TelemetryOutDB)
 def delete_Telemetry(*, db: Session = Depends(get_db), telemetry_id: int):
     """
-    Deletes a Telemetry specified by the name.
+    Deletes a Telemetry specified by the id.
     """
 
     try:

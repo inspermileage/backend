@@ -20,9 +20,9 @@ def read_tracks(db: Session = Depends(get_db)):
 
     return read_all(db_session=db)
 
+
 @router.get("/{track_name}", response_model=TrackInDB)
 def read_track(*, db: Session = Depends(get_db), track_name: str):
-
     """
     Returns a Track specified by the name
     """
@@ -46,16 +46,18 @@ def create_track(*, db: Session = Depends(get_db), track_in: TrackCreate):
 
 
 @router.put("/{track_name}", response_model=TrackOutDB)
-def update_track(*, db: Session = Depends(get_db),track_name: str, track_info: TrackUpdate):
+def update_track(*, db: Session = Depends(get_db), track_name: str, track_info: TrackUpdate):
     """
     Updates the Track specified by the name field in the request body, with the rest of the body fields.
     """
 
     try:
-        updated_track = update(db_session=db, track_name=track_name, obj_in=track_info)
+        updated_track = update(
+            db_session=db, track_name=track_name, obj_in=track_info)
     except NonExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return updated_track
+
 
 @router.delete("/{track_name}", response_model=TrackOutDB)
 def delete_track(*, db: Session = Depends(get_db), track_name: str):

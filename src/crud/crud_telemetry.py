@@ -22,14 +22,15 @@ def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
     Raises: 
         ExistenceException: if there is a Telemetry with the same name in the table
     """
- 
+
     # Transforms object to dict
     in_data: Dict = jsonable_encoder(obj_in)
 
     # Unpacks dict values to the Telemetry database model
     db_obj: TelemetryModel = TelemetryModel(**in_data)
 
-    telemetry_exists = db_session.query(TelemetryModel).filter(TelemetryModel.id == db_obj.id).first()
+    telemetry_exists = db_session.query(TelemetryModel).filter(
+        TelemetryModel.id == db_obj.id).first()
 
     if telemetry_exists:
         raise ExistenceException(field=db_obj.id)
@@ -55,7 +56,8 @@ def read_one_by_id(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:
         NonExistenceException: if there is no Telemetry with the specified id
     """
 
-    obj: TelemetryModel = db_session.query(TelemetryModel).filter(TelemetryModel.id == Telemetry_id).first()
+    obj: TelemetryModel = db_session.query(TelemetryModel).filter(
+        TelemetryModel.id == Telemetry_id).first()
     if not obj:
         raise NonExistenceException(field=str(Telemetry_id))
     return obj
@@ -80,8 +82,6 @@ def read_one_by_id(*, db_session: Session, Telemetry_id: int) -> TelemetryModel:
 #         raise NonExistenceException(field=str(telemetry_ref_date))
 #     return obj
 
-    
-
 
 def read_all(*, db_session: Session) -> List[TelemetryModel]:
     """Fetches all Telemetry from the table
@@ -95,8 +95,6 @@ def read_all(*, db_session: Session) -> List[TelemetryModel]:
 
     obj_list: List[TelemetryModel] = db_session.query(TelemetryModel).all()
     return obj_list
-
-
 
 
 def delete(*, db_session: Session, telemetry_id: int) -> TelemetryModel:

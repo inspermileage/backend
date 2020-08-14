@@ -3,11 +3,11 @@ import random
 import string
 from typing import Dict
 from main import app
+from tests.utils.randomString import random_lower_string
+from tests.utils.randomString import random_lower_string
 
 client = TestClient(app)
 
-def random_lower_string() -> str:
-    return "".join(random.choices(string.ascii_lowercase, k=32))
 
 # Creates a track so tests dont give a FK error on inserting round
 
@@ -15,15 +15,14 @@ def random_lower_string() -> str:
 # track_id = track_response.json()["id"]
 
 
-
-
 def test_create_round():
-    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
-    car_id=car_response.json()["id"]
+    car_response = client.post("/api/car/", json={"name": random_lower_string(
+    ), "description": random_lower_string(), "creation_date": "2020-06-02"})
+    car_id = car_response.json()["id"]
 
-    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_response = client.post(
+        "/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
     track_id = track_response.json()["id"]
-
 
     data = {"name": random_lower_string(),
             "description": random_lower_string(),
@@ -41,18 +40,19 @@ def test_create_round():
 
 
 def test_create_duplicate_round():
-    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
-    car_id=car_response.json()["id"]
+    car_response = client.post("/api/car/", json={"name": random_lower_string(
+    ), "description": random_lower_string(), "creation_date": "2020-06-02"})
+    car_id = car_response.json()["id"]
 
-    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_response = client.post(
+        "/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
     track_id = track_response.json()["id"]
-
 
     data = {"name": random_lower_string(),
             "description": random_lower_string(),
-            "reason":"Test",
+            "reason": "Test",
             "track_id": track_id,
-            "car_id":car_id}
+            "car_id": car_id}
 
     first_response = client.post("/api/round/", json=data)
     assert first_response.status_code == 200
@@ -61,18 +61,19 @@ def test_create_duplicate_round():
 
 
 def test_update_round():
-    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
-    car_id=car_response.json()["id"]
+    car_response = client.post("/api/car/", json={"name": random_lower_string(
+    ), "description": random_lower_string(), "creation_date": "2020-06-02"})
+    car_id = car_response.json()["id"]
 
-    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_response = client.post(
+        "/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
     track_id = track_response.json()["id"]
 
-
     insert_data = {"name": random_lower_string(),
-                    "description": random_lower_string(),
+                   "description": random_lower_string(),
                    "reason": "Test",
                    "track_id": track_id,
-                   "car_id":car_id}
+                   "car_id": car_id}
 
     insert_response = client.post("/api/round/", json=insert_data)
     assert insert_response.status_code == 200
@@ -85,7 +86,6 @@ def test_update_round():
 
     update_response = client.put(f"/api/round/{update_id}", json=update_data)
     assert update_response.status_code == 200
-   
 
 
 def test_update_invalid_round():
@@ -99,14 +99,16 @@ def test_update_invalid_round():
 
 
 def test_read_round():
-    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
-    car_id=car_response.json()["id"]
+    car_response = client.post("/api/car/", json={"name": random_lower_string(
+    ), "description": random_lower_string(), "creation_date": "2020-06-02"})
+    car_id = car_response.json()["id"]
 
-    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_response = client.post(
+        "/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
     track_id = track_response.json()["id"]
 
     insert_data = {"name": random_lower_string(),
-                  "description": random_lower_string(),
+                   "description": random_lower_string(),
                    "reason": "Test",
                    "track_id": track_id,
                    "car_id": car_id}
@@ -136,12 +138,13 @@ def test_read_rounds():
 
 
 def test_delete_round():
-    car_response=client.post("/api/car/", json={ "name": random_lower_string(), "description":random_lower_string(), "creation_date": "2020-06-02"})
-    car_id=car_response.json()["id"]
+    car_response = client.post("/api/car/", json={"name": random_lower_string(
+    ), "description": random_lower_string(), "creation_date": "2020-06-02"})
+    car_id = car_response.json()["id"]
 
-    track_response = client.post("/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
+    track_response = client.post(
+        "/api/track/", json={"name": random_lower_string(), "description": random_lower_string()})
     track_id = track_response.json()["id"]
-
 
     data = {"name": random_lower_string(),
             "description": random_lower_string(),
@@ -149,9 +152,7 @@ def test_delete_round():
             "track_id": track_id,
             "car_id": car_id}
     response = client.post("/api/round/", json=data)
-    round_id=response.json()["id"]
-
-
+    round_id = response.json()["id"]
 
     delete_response = client.delete(f"/api/round/{round_id}")
     assert delete_response.status_code == 200

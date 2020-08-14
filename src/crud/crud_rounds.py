@@ -30,7 +30,8 @@ def create(*, db_session: Session, obj_in: RoundCreate) -> RoundModel:
     # Unpacks dict values to the Round database model
     db_obj: RoundModel = RoundModel(**in_data)
 
-    round_exists = db_session.query(RoundModel).filter(RoundModel.name == db_obj.name).first()
+    round_exists = db_session.query(RoundModel).filter(
+        RoundModel.name == db_obj.name).first()
 
     if round_exists:
         raise ExistenceException(field=db_obj.name)
@@ -56,7 +57,8 @@ def read_one(*, db_session: Session, round_id: int) -> RoundModel:
         NonExistenceException: if there is no round with the specified id
     """
 
-    obj: RoundModel = db_session.query(RoundModel).filter(RoundModel.id == round_id).first()
+    obj: RoundModel = db_session.query(RoundModel).filter(
+        RoundModel.id == round_id).first()
     if not obj:
         raise NonExistenceException(field=str(round_id))
     return obj
@@ -131,22 +133,3 @@ def delete(*, db_session: Session, round_id: int) -> RoundModel:
     db_session.delete(round_exists)
     db_session.commit()
     return round_exists
-
-# def create(*, db_session: Session, obj_in: CarCreate) -> CarModel:
- 
-#     # Transforms object to dict
-#     in_data: Dict = jsonable_encoder(obj_in)
-
-#     # Unpacks dict values to the Round database model
-#     db_obj: CarModel = CarModel(**in_data)
-
-#     round_exists = db_session.query(CarModel).filter(CarModel.name == db_obj.name).first()
-
-#     if round_exists:
-#         raise ExistenceException(field=db_obj.name)
-
-#     # Inserts the round data to the database
-#     db_session.add(db_obj)
-#     db_session.commit()
-#     db_session.refresh(db_obj)
-#     return db_obj

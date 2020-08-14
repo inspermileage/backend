@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Dict, List
 
 from fastapi.encoders import jsonable_encoder
@@ -18,11 +17,9 @@ def create(*, db_session: Session, obj_in: TelemetryCreate) -> TelemetryModel:
 
     Returns:
         The object TelemetryModel that was inserted to the table
-
-    Raises: 
+    Raises:
         ExistenceException: if there is a Telemetry with the same name in the table
     """
-
     # Transforms object to dict
     in_data: Dict = jsonable_encoder(obj_in)
 

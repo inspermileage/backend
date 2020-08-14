@@ -1,9 +1,5 @@
-import datetime
-from datetime import date, datetime, time
-from enum import Enum
-from typing import Optional
-
-from pydantic import BaseModel, Field
+from datetime import datetime
+from pydantic import BaseModel
 
 
 class TelemetryInDB(BaseModel):
@@ -15,13 +11,13 @@ class TelemetryInDB(BaseModel):
     speed: float
     distance: float
     engine_temp: float
-    creation_time:  datetime
+    creation_time: datetime
     energy_cons: float
     rpm: int
     battery: int
     round_id: int
 
-   # telemtery_timestamp: datetime
+    # telemtery_timestamp: datetime
     class Config:
         orm_mode = True
 
@@ -38,7 +34,6 @@ class TelemetryCreate(BaseModel):
     energy_cons: float
     rpm: int
     battery: int
-    #telemetry_timestamp: Optional[time] = datetime.now()
     round_id: int
 
 
@@ -48,18 +43,3 @@ class TelemetryOutDB(BaseModel):
 
     class Config:
         orm_mode = True
-
-# class TelemetryUpdate(BaseModel):
-#     """
-#     This class models the request body for updating a existing Telemtry data in the database.
-#     """
-
-
-#     speed: Optional[float]
-#     distance: Optional[float]
-#     engine_temp: Optional[float]
-#     energy_cons: Optional[float]
-#     rpm: Optional[int]
-#     battery: Optional[int]
-#    # telemetry_timestamp: Optional[datetime]
-#     round_id: Optional[int]

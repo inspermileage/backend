@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from src.api.utils.db import get_db
 from src.crud.crud_rounds import create, delete, read_all, read_one, update
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.schemas.round import RoundCreate, RoundInDB, RoundUpdate, RoundOutDB
+from src.schemas.round import RoundCreate, RoundInDB, RoundOutDB, RoundUpdate
 
 router = APIRouter()
 

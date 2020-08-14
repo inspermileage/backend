@@ -2,7 +2,7 @@ from typing import Dict, List
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-from datetime import date
+
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.car import Car as CarModel
 from src.schemas.car import CarCreate, CarUpdate
@@ -19,9 +19,8 @@ def create(*, db: Session, car_in: CarCreate) -> CarModel:
         The object CarModel that was inserted to the table
 
     Raises:
-        HTTPException 
+        HTTPException
     """
-
     # Transforms object to dict
     obj_in_data: Dict = jsonable_encoder(car_in)
 

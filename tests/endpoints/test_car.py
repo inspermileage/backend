@@ -1,7 +1,9 @@
-from starlette.testclient import TestClient
 import random
 import string
 from typing import Dict
+
+from starlette.testclient import TestClient
+
 from main import app
 from tests.utils.randomString import random_lower_string
 

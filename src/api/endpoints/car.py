@@ -4,13 +4,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from src.api.utils.db import get_db
+from src.crud.crud_car import create, delete, read_all, read_one, update
 from src.crud.utils import ExistenceException, NonExistenceException
-
-from src.crud.crud_car import (create, delete, read_all,
-                               read_one, update)
-
-from src.schemas.car import CarCreate, CarInDB, CarUpdate, CarOutDB
-
+from src.schemas.car import CarCreate, CarInDB, CarOutDB, CarUpdate
 
 router = APIRouter()
 

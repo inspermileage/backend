@@ -1,15 +1,16 @@
-from sqlalchemy.orm import Session
 import random
 import string
-from typing import Dict
-from src.crud.crud_track import (
-    create, delete, read_all, read_one_by_name, update)
-from src.schemas.track import TrackCreate, TrackUpdate
 from typing import Dict, Generator
-from src.models.track import Track as TrackModel
-from src.crud.utils import ExistenceException, NonExistenceException
+
 import pytest
+from sqlalchemy.orm import Session
+
+from src.crud.crud_track import (create, delete, read_all, read_one_by_name,
+                                 update)
+from src.crud.utils import ExistenceException, NonExistenceException
 from src.database.session import Session
+from src.models.track import Track as TrackModel
+from src.schemas.track import TrackCreate, TrackUpdate
 from tests.utils.randomString import random_lower_string
 
 

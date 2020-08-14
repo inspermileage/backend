@@ -1,17 +1,18 @@
-from sqlalchemy.orm import Session
 import random
 import string
-from typing import Dict
-from src.crud.crud_rounds import (create, delete, read_all, read_one, update)
-from src.schemas.round import RoundCreate, RoundUpdate
 from typing import Dict, Generator
-from src.models.round import Round as RoundModel
-from src.crud.utils import ExistenceException, NonExistenceException
-from tests.utils.car import create_random_car
-from tests.utils.track import create_random_track
+
 import pytest
+from sqlalchemy.orm import Session
+
+from src.crud.crud_rounds import create, delete, read_all, read_one, update
+from src.crud.utils import ExistenceException, NonExistenceException
 from src.database.session import Session
+from src.models.round import Round as RoundModel
+from src.schemas.round import RoundCreate, RoundUpdate
+from tests.utils.car import create_random_car
 from tests.utils.randomString import random_lower_string
+from tests.utils.track import create_random_track
 
 
 @pytest.fixture(scope="session")

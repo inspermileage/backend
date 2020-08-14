@@ -7,7 +7,7 @@ from src.api.utils.db import get_db
 from src.crud.crud_track import (create, delete, read_all, read_one_by_name,
                                  update)
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.schemas.track import TrackCreate, TrackInDB, TrackUpdate, TrackOutDB
+from src.schemas.track import TrackCreate, TrackInDB, TrackOutDB, TrackUpdate
 
 router = APIRouter()
 

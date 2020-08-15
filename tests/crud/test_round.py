@@ -1,13 +1,8 @@
-import random
-import string
-from typing import Dict, Generator
-
+from typing import Generator
 import pytest
 from sqlalchemy.orm import Session
-
 from src.crud.crud_rounds import create, delete, read_all, read_one, update
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.database.session import Session
 from src.models.round import Round as RoundModel
 from src.schemas.round import RoundCreate, RoundUpdate
 from tests.utils.car import create_random_car
@@ -65,7 +60,7 @@ def test_create_duplicate_item(db: Session) -> RoundModel:
     assert item.car_id == car_id
     assert item.id is not None
     with pytest.raises(ExistenceException):
-        second_item = create(db_session=db, obj_in=item_in)
+        create(db_session=db, obj_in=item_in)
 
 
 def test_read_all(db: Session) -> RoundModel:
@@ -100,7 +95,7 @@ def test_read_one(db: Session) -> RoundModel:
 def test_read_invalid_one(db: Session) -> RoundModel:
     item_id = 0
     with pytest.raises(NonExistenceException):
-        read_item = read_one(db_session=db, round_id=item_id)
+        read_one(db_session=db, round_id=item_id)
 
 
 def test_update(db: Session) -> RoundModel:
@@ -133,8 +128,7 @@ def test_update_invalid_one(db: Session) -> RoundModel:
     item_update = RoundUpdate(
         name=random_lower_string(), description=random_lower_string())
     with pytest.raises(NonExistenceException):
-        updated_round = update(
-            db_session=db, round_id=item_id, obj_in=item_update)
+        update(db_session=db, round_id=item_id, obj_in=item_update)
 
 
 def test_delete(db: Session) -> RoundModel:
@@ -163,4 +157,4 @@ def test_delete_invalid_one(db: Session) -> RoundModel:
 
     item_id = 987654321
     with pytest.raises(NonExistenceException):
-        delete_item = delete(db_session=db, round_id=item_id)
+        delete(db_session=db, round_id=item_id)

@@ -1,13 +1,7 @@
-import random
-import string
-from typing import Dict, Generator
-
+from typing import Generator
 import pytest
 from sqlalchemy.orm import Session
-
 from src.crud.crud_telemetry import create, delete, read_all, read_one_by_id
-from src.crud.utils import ExistenceException, NonExistenceException
-from src.database.session import Session
 from src.models.telemetry import Telemetry as TelemetryModel
 from src.schemas.telemetry import TelemetryCreate
 from tests.utils.round import create_random_round

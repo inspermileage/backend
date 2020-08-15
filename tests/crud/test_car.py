@@ -1,13 +1,9 @@
-import random
-import string
-from typing import Dict, Generator
-
+from typing import Generator
 import pytest
 from sqlalchemy.orm import Session
 
 from src.crud.crud_car import create, delete, read_all, read_one, update
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.database.session import Session
 from src.models.car import Car as CarModel
 from src.schemas.car import CarCreate, CarUpdate
 from tests.utils.randomString import random_lower_string
@@ -45,8 +41,7 @@ def test_create_duplicate_item(db: Session) -> CarModel:
     assert item.description == description
     assert item.id is not None
     with pytest.raises(ExistenceException):
-
-        second_item = create(db=db, car_in=item_in)
+        create(db=db, car_in=item_in)
 
 
 def test_read_all(db: Session) -> CarModel:
@@ -76,7 +71,7 @@ def test_read_invalid_one(db: Session) -> CarModel:
 
     name = 'bla'
     with pytest.raises(NonExistenceException):
-        read_item = read_one(db_session=db, name=name)
+        read_one(db_session=db, name=name)
 
 
 def test_update(db: Session) -> CarModel:
@@ -103,8 +98,7 @@ def test_update_invalid_one(db: Session) -> CarModel:
     item_update = CarUpdate(name=random_lower_string(),
                             description=random_lower_string())
     with pytest.raises(NonExistenceException):
-
-        updated_car = update(db=db, car_id=item_id, car_info=item_update)
+        update(db=db, car_id=item_id, car_info=item_update)
 
 
 def test_delete(db: Session) -> CarModel:
@@ -126,4 +120,4 @@ def test_delete_invalid_one(db: Session) -> CarModel:
 
     name = 'bla'
     with pytest.raises(NonExistenceException):
-        delete_item = delete(db=db, name=name)
+        delete(db=db, name=name)

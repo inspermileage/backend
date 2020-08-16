@@ -1,7 +1,3 @@
-import random
-import string
-from typing import Dict
-
 from starlette.testclient import TestClient
 
 from main import app
@@ -78,7 +74,7 @@ def test_read_track():
 
 
 def test_read_tracks():
-    read_response = client.get(f"/api/track/")
+    read_response = client.get(f'{"/api/track/"}')
     assert read_response.status_code == 200
     assert type(read_response.json()) == list
 

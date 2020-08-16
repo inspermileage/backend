@@ -1,7 +1,3 @@
-import random
-import string
-from typing import Dict
-
 from starlette.testclient import TestClient
 
 from main import app
@@ -135,7 +131,7 @@ def test_read_telemetry_by_id():
 
 
 def test_read_telemetry():
-    read_response = client.get(f"/api/telemetry/")
+    read_response = client.get(f'{"/api/telemetry/"}')
     assert read_response.status_code == 200
     assert type(read_response.json()) == list
 
@@ -147,12 +143,12 @@ def test_read_invalid_telemetry():
 
 
 def test_read_invalid_telemetry_two():
-    update_response = client.get(f"/api/telemetryy/", headers={"id": "0"})
+    update_response = client.get(f'{"/api/telemetryy/"}', headers={"id": "0"})
     assert update_response.status_code == 404
 
 
 def test_delete_telemetry():
-    read_response = client.get(f"/api/telemetry/")
+    read_response = client.get(f'{"/api/telemetry/"}')
     id_list = [id["id"] for id in read_response.json()]
     for id_remove in id_list:
         delete_response = client.delete(f"/api/telemetry/{id_remove}")

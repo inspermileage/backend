@@ -1,7 +1,3 @@
-import random
-import string
-from typing import Dict
-
 from starlette.testclient import TestClient
 
 from main import app
@@ -133,7 +129,7 @@ def test_read_invalid_round():
 
 
 def test_read_rounds():
-    read_response = client.get(f"/api/round/")
+    read_response = client.get(f'{"/api/round/"}')
     assert read_response.status_code == 200
     assert type(read_response.json()) == list
 

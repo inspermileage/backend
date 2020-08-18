@@ -1,6 +1,6 @@
 from typing import Generator
 import pytest
-from sqlalchemy.orm import Session
+from src.database.session import Session
 
 from src.crud.crud_track import (create, delete, read_all, read_one_by_name,
                                  update)

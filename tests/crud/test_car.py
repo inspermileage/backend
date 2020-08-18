@@ -1,7 +1,6 @@
 from typing import Generator
 import pytest
 from sqlalchemy.orm import Session
-
 from src.crud.crud_car import create, delete, read_all, read_one, update
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.car import Car as CarModel

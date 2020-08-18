@@ -2,6 +2,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
+
 class TelemetryInDB(BaseModel):
     """
     This represents the object stored in the database, it is similar to the `/models/Telemetry`.

@@ -28,7 +28,7 @@ def read_car(db: Session = Depends(get_db)):
     """
     Returns a list of all the car entries in the database.
     """
- 
+
     return read_all(db=db)
 
 

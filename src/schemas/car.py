@@ -1,8 +1,7 @@
-from datetime import date, datetime, time
-from enum import Enum
+from datetime import date, datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class CarInDB(BaseModel):
@@ -14,37 +13,35 @@ class CarInDB(BaseModel):
     name: str
     description: str
     creation_date: date
-    class Config:
-        orm_mode = True
 
+    class Config:
+
+        orm_mode = True
 
 
 class CarOutDB(BaseModel):
 
-
     id: int
-    name:str
+    name: str
 
     class Config:
-            orm_mode = True
-
-
+        orm_mode = True
 
 
 class CarCreate(BaseModel):
     """
     This class models the request body for creating a new Car in the database.
     """
-    
-    name:str =""
-    description: Optional[str]= ""
+    name: str = ""
+    description: Optional[str] = ""
     creation_date: Optional[date] = datetime.now().date()
+
 
 class CarUpdate(BaseModel):
     """
     This class models the request body for updating a existing Car in the database.
     """
-    
+
     name: Optional[str]
     description: Optional[str]
     creation_date: Optional[date]

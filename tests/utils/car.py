@@ -1,10 +1,9 @@
-from sqlalchemy.orm import Session
 import random
 import string
-
 from src.crud.crud_car import create
 from src.schemas.car import CarCreate
 from src.models.car import Car as CarModel
+
 
 
 def random_lower_string() -> str:

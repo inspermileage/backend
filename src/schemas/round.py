@@ -28,15 +28,17 @@ class RoundInDB(BaseModel):
     reason: Reason
     track_id: int
     car_id: int
+
     class Config:
         orm_mode = True
+
 
 class RoundOutDB(BaseModel):
 
     id: int
+
     class Config:
         orm_mode = True
-     
 
 
 class RoundCreate(BaseModel):
@@ -50,6 +52,7 @@ class RoundCreate(BaseModel):
     ref_date: Optional[date] = datetime.now().date()
     track_id: int
     car_id: int
+
 
 class RoundUpdate(BaseModel):
     """

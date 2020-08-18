@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from src.api.utils.db import get_db
 from src.crud.crud_rounds import create, delete, read_all, read_one, update
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.schemas.round import RoundCreate, RoundInDB, RoundUpdate, RoundOutDB
+from src.schemas.round import RoundCreate, RoundInDB, RoundOutDB, RoundUpdate
 
 router = APIRouter()
 
@@ -52,7 +52,8 @@ def update_round(*, db: Session = Depends(get_db), round_id: int, round_info: Ro
     """
 
     try:
-        updated_round = update(db_session=db, round_id=round_id, obj_in=round_info)
+        updated_round = update(
+            db_session=db, round_id=round_id, obj_in=round_info)
     except NonExistenceException as err:
         raise HTTPException(status_code=303, detail=err.message)
     return updated_round
@@ -61,7 +62,7 @@ def update_round(*, db: Session = Depends(get_db), round_id: int, round_info: Ro
 @router.delete("/{round_id}", response_model=RoundOutDB)
 def delete_round(*, db: Session = Depends(get_db), round_id: int):
     """
-    Deletes a Round specified by the name.
+    Deletes a Round specified by the id.
     """
 
     try:

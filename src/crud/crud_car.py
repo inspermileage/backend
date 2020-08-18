@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.car import Car as CarModel
 from src.schemas.car import CarCreate, CarUpdate
- 
+
 
 def create(*, db: Session, car_in: CarCreate) -> CarModel:
     """Creates a row with new data in the Car table
@@ -18,16 +18,16 @@ def create(*, db: Session, car_in: CarCreate) -> CarModel:
         The object CarModel that was inserted to the table
 
     Raises:
-        HTTPException 
+        HTTPException
     """
-
     # Transforms object to dict
     obj_in_data: Dict = jsonable_encoder(car_in)
 
     # Unpacks dict values to the Telemetry database model
     db_obj: CarModel = CarModel(**obj_in_data)
 
-    car_exists = db.query(CarModel).filter(CarModel.name == db_obj.name).first()
+    car_exists = db.query(CarModel).filter(
+        CarModel.name == db_obj.name).first()
 
     if car_exists:
         raise ExistenceException(field=db_obj.name)
@@ -37,6 +37,7 @@ def create(*, db: Session, car_in: CarCreate) -> CarModel:
     db.commit()
     db.refresh(db_obj)
     return db_obj
+
 
 def read_all(*, db: Session) -> List[CarModel]:
     """Fetches all Car from the table
@@ -52,7 +53,7 @@ def read_all(*, db: Session) -> List[CarModel]:
     return obj_list
 
 
-def read_one(*, db_session: Session, name:str) -> CarModel:
+def read_one(*, db_session: Session, name: str) -> CarModel:
     """Fetches from the table, a Car specified by the name
 
     Args:
@@ -65,13 +66,15 @@ def read_one(*, db_session: Session, name:str) -> CarModel:
     Raises:
         HTTPException: if Car is not found
     """
-    car_obj: CarModel = db_session.query(CarModel).filter(CarModel.name == name).first()
+    car_obj: CarModel = db_session.query(
+        CarModel).filter(CarModel.name == name).first()
     if not car_obj:
         raise NonExistenceException(field=str(name))
     return car_obj
 
+
 def update(*, db: Session, car_id: int, car_info: CarUpdate) -> CarModel:
-    
+
     # Tries to find the car by id
     car_obj = db.query(CarModel).filter(CarModel.id == car_id).first()
     if not car_obj:
@@ -90,7 +93,6 @@ def update(*, db: Session, car_id: int, car_info: CarUpdate) -> CarModel:
 
 
 def delete(*, db: Session, name: str) -> CarModel:
-    
 
     car_exists: CarModel = db.query(CarModel).filter(
         CarModel.name == name).first()

@@ -19,16 +19,17 @@ def create(*, db_session: Session, obj_in: TrackCreate) -> TrackModel:
         The object TrackModel that was inserted to the table
 
     Raises:
-        ExistenceException: if there is a Telemetry with the same name in the table
+        ExistenceException: if there is a Track with the same name in the table
     """
 
     # Transforms object to dict
     in_data: Dict = jsonable_encoder(obj_in)
 
-    # Unpacks dict values to the Telemetry database model
+    # Unpacks dict values to the Track database model
     db_obj: TrackModel = TrackModel(**in_data)
 
-    track_exists = db_session.query(TrackModel).filter(TrackModel.name == db_obj.name).first()
+    track_exists = db_session.query(TrackModel).filter(
+        TrackModel.name == db_obj.name).first()
 
     if track_exists:
         raise ExistenceException(field=db_obj.name)
@@ -41,7 +42,7 @@ def create(*, db_session: Session, obj_in: TrackCreate) -> TrackModel:
 
 
 def read_one_by_name(*, db_session: Session, Track_name: str) -> TrackModel:
-    """Fetches from the table, a Telemetry specified by the name
+    """Fetches from the table, a Track specified by the name
 
     Args:
         db_session: a Session instance to execute queries in the database
@@ -51,60 +52,36 @@ def read_one_by_name(*, db_session: Session, Track_name: str) -> TrackModel:
        The object TrackModel found by the query
 
     Raises:
-        NonExistenceException: if there is no Telemetry with the specified id
+        NonExistenceException: if there is no Track with the specified name
     """
 
-    obj: TrackModel = db_session.query(TrackModel).filter(TrackModel.name == Track_name).first()
+    obj: TrackModel = db_session.query(TrackModel).filter(
+        TrackModel.name == Track_name).first()
     if not obj:
         raise NonExistenceException(field=str(Track_name))
     return obj
 
 
-# def read_one_by_date(*, db_session: Session, telemetryelemetry_ref_date: date) ->TelemetryModel:
-#     """Fetches from the table, a Telemetry specified by the id
-
-#     Args:
-#         db_session: a Session instance to execute queries in the database
-#         telemetry_id: the id of the Telemetry
-
-#     Returns:
-#        The object TelemetryModel found by the query
-
-#     Raises:
-#         NonExistenceException: if there is no telemetry with the specified id
-#     """
-
-#     obj: TelemetryModel = db_session.query(TelemetryModel).filter(TelemetryModel.id == Telemetry_id).first()
-#     if not obj:
-#         raise NonExistenceException(field=str(telemetry_ref_date))
-#     return obj
-
-    
-
-
 def read_all(*, db_session: Session) -> List[TrackModel]:
-    """Fetches all Telemetry from the table
+    """Fetches all Tracks from the table
 
     Args:
         db_session: a Session instance to execute queries in the database
 
     Returns:
-       A list with the objects TelemetryModel found by the query
+       A list with the objects TrackModel found by the query
     """
 
     obj_list: List[TrackModel] = db_session.query(TrackModel).all()
     return obj_list
 
 
-
-
-
 def update(*, db_session: Session, track_name: str, obj_in: TrackUpdate) -> TrackModel:
-    """Updates a Track from the table, specified by the id
+    """Updates a Track from the table, specified by the name
 
     Args:
         db_session: a Session instance to execute queries in the database
-        track_id: the id of the Track
+        track_name: the name of the Track
         obj_in: a TrackUpdate object with the data to be updated in the Track specified by id
 
     Returns:
@@ -131,6 +108,7 @@ def update(*, db_session: Session, track_name: str, obj_in: TrackUpdate) -> Trac
     db_session.commit()
     db_session.refresh(track_exists)
     return track_exists
+
 
 def delete(*, db_session: Session, track_name: str) -> TrackModel:
     """Deletes from the table, a Track specified by the name

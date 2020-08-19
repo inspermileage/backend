@@ -6,7 +6,6 @@ from sqlalchemy.orm import Session
 from src.api.utils.db import get_db
 from src.crud.crud_telemetry import create, delete, read_all, read_one_by_id
 from src.crud.utils import ExistenceException, NonExistenceException
-from src.models.telemetry import Telemetry as TelemetryModel
 from src.schemas.telemetry import (TelemetryCreate, TelemetryInDB,
                                    TelemetryOutDB)
 

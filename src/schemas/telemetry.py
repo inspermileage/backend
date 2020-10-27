@@ -16,7 +16,11 @@ class TelemetryInDB(BaseModel):
     energy_cons: float
     rpm: int
     battery: int
+    avg_speed: float
     round_id: int
+    
+
+
 
     # telemtery_timestamp: datetime
     class Config:
@@ -35,6 +39,7 @@ class TelemetryCreate(BaseModel):
     energy_cons: float
     rpm: int
     battery: int
+    avg_speed: float
     round_id: int
 
 

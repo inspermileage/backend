@@ -15,5 +15,6 @@ class Telemetry(Base):
     energy_cons = Column(Float, nullable=True)
     rpm = Column(Integer, nullable=False)
     battery = Column(Integer, nullable=True)
+    avg_speed= Column(Float, nullable=False)
     round_id = Column(Integer, ForeignKey("round.id"))
     rounds = relationship(Round, primaryjoin=round_id == Round.id)

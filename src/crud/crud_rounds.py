@@ -62,6 +62,29 @@ def read_one(*, db_session: Session, round_id: int) -> RoundModel:
     return obj
 
 
+def read_by_reason(*, db_session: Session, round_reason: str) -> RoundModel:
+    """Fetches from the table, a Round specified by the reason
+
+    Args:
+        db_session: a Session instance to execute queries in the database
+        round_reason: the reason of the Round
+
+    Returns:
+       The object RoundModel found by the query
+
+    Raises:
+        NonExistenceException: if there is no round with the specified id
+    """
+
+    obj: List[RoundModel] = db_session.query(RoundModel).filter(
+        RoundModel.reason == round_reason).all()
+    if not obj:
+        raise NonExistenceException(field=str(round_reason))
+    return obj
+
+
+
+
 def read_all(*, db_session: Session) -> List[RoundModel]:
     """Fetches all Rounds from the table
 

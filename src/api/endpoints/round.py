@@ -2,9 +2,9 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
+from datetime import date, datetime
 from src.api.utils.db import get_db
-from src.crud.crud_rounds import create, delete, read_all, read_one, read_by_reason,  update
+from src.crud.crud_rounds import create, delete, read_all, read_one, read_by_reason,read_by_data,  update
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.schemas.round import RoundCreate, RoundInDB, RoundOutDB, RoundUpdate
 
@@ -57,6 +57,19 @@ def read_round_by_reason(*, db: Session = Depends(get_db), round_reason: str):
     except NonExistenceException as err:
         raise HTTPException(status_code=404, detail=err.message)
     return existing_round_reason
+
+@router.get("/reason/{round_data}", response_model=List[RoundInDB])
+def read_round_by_data(*, db: Session = Depends(get_db), round_data: str):
+    """
+    Returns a Round specified by the Data.
+    """
+
+    try:    
+        existing_round_data = read_by_data(db_session=db, round_data=round_data)
+    except NonExistenceException as err:
+        raise HTTPException(status_code=404, detail=err.message)
+    return existing_round_data
+
 
 
 

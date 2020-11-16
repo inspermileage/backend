@@ -2,7 +2,7 @@ from typing import Dict, List
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
-
+from datetime import date, datetime
 from src.crud.utils import ExistenceException, NonExistenceException
 from src.models.round import Round as RoundModel
 from src.schemas.round import RoundCreate, RoundUpdate
@@ -82,6 +82,25 @@ def read_by_reason(*, db_session: Session, round_reason: str) -> RoundModel:
         raise NonExistenceException(field=str(round_reason))
     return obj
 
+def read_by_data(*, db_session: Session, round_data: str) -> RoundModel:
+    """Fetches from the table, a Round specified by the date
+
+    Args:
+        db_session: a Session instance to execute queries in the database
+        round_date: the date of the Round
+
+    Returns:
+       The object RoundModel found by the query
+
+    Raises:
+        NonExistenceException: if there is no round with the specified date
+    """
+    round_data=datetime.strptime(round_data, '%Y-%m-%d').date()
+    obj: List[RoundModel] = db_session.query(RoundModel).filter(
+        RoundModel.ref_date == round_data).all()
+    if not obj:
+        raise NonExistenceException(field=str(round_data))
+    return obj
 
 
 
